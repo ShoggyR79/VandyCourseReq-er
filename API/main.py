@@ -118,7 +118,7 @@ def getPreReqs(startIndex, description, prereq, name):
     startIndex = startIndex + description[startIndex:].find(major) + len(major)+1
     if(name == "CS2212 - Discrete Structures"):
         prereq.append([])
-        prereq[0].append("None")
+        prereq[0].append("base")
         return
 
     if (name == "CS3262 - Applied Machine Learning"): #special case, fix if have time
