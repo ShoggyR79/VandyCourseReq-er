@@ -1,5 +1,6 @@
 const fs = require('fs')
 
+
 class Graph {
     constructor(){
         let filename = "API/course_file.txt";
@@ -241,3 +242,6 @@ for(var i = 0; i < graph.availableClasses().length; ++i){
     console.log(graph.availableClasses()[i]);
 }*/
 
+module.exports = {
+    getDisplay,
+}

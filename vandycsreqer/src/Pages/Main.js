@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
 
 import Course from '../Components/Course'
-import { getDisplay } from '../Graph/graph';
+import { getCourses } from '../redux/actions/CourseAction'
 
 export default function Main() {
 
@@ -18,15 +20,13 @@ export default function Main() {
     //     { id: 9, name: "CS2212", isTaken: false, next: "CS1111", category: "seminar" }],
     // ]
 
-    let courseList = []
-    const getD = () => {
-        courseList = getDisplay();
+    const { courseList } = useSelector(state => state.CourseReducer)
+    const dispatch = useDispatch()
 
-    }
 
     useEffect(async () => {
-        getD();
-    })
+        dispatch(getCourses());
+    }, [])
 
     const renderLine = (line) => {
         return line.map((course, index) => {
