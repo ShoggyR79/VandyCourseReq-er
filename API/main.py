@@ -111,30 +111,44 @@ def scrapeCourse(URL, name, course_writer): #get info on a single course
             term = ["FALL"]
         if description[startIndex:].find("SPRING") != -1 and description[startIndex:].find("FALL") == -1:
             term = ["SPRING"]
-    #print("name:", name, "\n\tPrereqs: ", prereq,"\n\tDescription: ",description, "\n\tTerm: ",term)
+    print("name:", name, "\n\tPrereqs: ", prereq,"\n\tDescription: ",description, "\n\tTerm: ",term)
     exportTXT(name, description, prereq, term, course_writer)
 
 def getPreReqs(startIndex, description, prereq, name):
     startIndex = startIndex + description[startIndex:].find(major) + len(major)+1
+    if(name == "CS2212 - Discrete Structures"):
+        prereq.append([])
+        prereq[0].append("base")
+        return
+
     if (name == "CS3262 - Applied Machine Learning"): #special case, fix if have time
         prereq.append([])
+        prereq[0].append("1100")
         prereq[0].append("2201")
         prereq[0].append("2204")
         return
-    if (name == "CS2212 - Discrete Structures"): #special case, fix if have time
+
+    if (name == "CS2201 - Program Design and Data Structures"):  # special case, fix if have time
         prereq.append([])
+        prereq[0].append("1101")
+        prereq[0].append("1104")
+        return
+
+
+    if (name == "CS2204 - Program Design and Data Structures for Scientific Computing"):  # special case, fix if have time
+        prereq.append([])
+        prereq[0].append("1100")
+        prereq[0].append("1104")
         return
 
     prereq.append([description[startIndex:startIndex+4]])
     tmp = 0
     while description[startIndex+4:].find(major) != -1 and startIndex < len(description):
-
         if description[startIndex+4:description[startIndex+4:].find(major)+startIndex+4].find(",") != -1 or description[startIndex+4:description[startIndex+4:].find(major)+startIndex+4].find(";")!= -1: #comma in between --> and
             startIndex = description[startIndex+4:].find(major)+startIndex+4+len(major)+1 #fix this
             prereq.append([description[startIndex:startIndex+4]])
             tmp = tmp+1
         else:
-
             startIndex = description[startIndex+4:].find(major)+startIndex+4 + len(major)+1 #fix this
             prereq[tmp].append([description[startIndex:startIndex+4]])
 
@@ -143,7 +157,7 @@ def exportTXT(name, description, prereq, term, course_writer):
         id = name[2:6]
         result.append(id)
         if len(prereq) == 0:
-            result.append("None")
+            result.append("base")
         else:
             for p in prereq:
                 result.append(toString(p))
