@@ -19,10 +19,9 @@ class Course(object):
         self.keywords = [] #array of strings
 
 URL = "https://www.vanderbilt.edu/catalogs/kuali/undergraduate.php/#/courses?group=Computer%20Science"
-
+driver = webdriver.Safari()
 def scrapeMenu(URL):
     # establishing connection to the main catalog
-    driver = webdriver.Safari()
     driver.get(URL)
     global courses, links
     courses = WebDriverWait(driver, 10).until(
@@ -31,19 +30,36 @@ def scrapeMenu(URL):
     links = [course.get_attribute('href') for course in courses]
 
 
-def buildGraph(courses, links):
-    global G
-    G=nx.DiGraph()
-    #G.add_node("1100", course = )
-    i = 0
-    for course in courses:
-        print(course.text)
-        print(links[i])
-        i = i + 1
+def scrapeCourse(URL, name):
+    driver.get(URL)
+    course = WebDriverWait(driver, 10).until(
+        EC.presence_of_all_elements_located(
+            (By.CSS_SELECTOR, ".course-view__pre___2VF54")))
+    description = course[0].text
+    startIndex = description.find("Prerequisite")
+    prereq = []
+    if description.find("Prerequisite")!= -1:
+        getPreReqs(startIndex, description, prereq)
+    print(prereq)
+
+def getPreReqs(startIndex, description, prereq):
+    startIndex = startIndex + 17
+    prereq.append([description[startIndex:startIndex+4]])
+    tmp = 0
+    while description[startIndex+4:].find("CS") != -1:
+        if description[startIndex+4] == ",":
+            startIndex = startIndex + 9 #fix this
+            prereq.append([description[startIndex:startIndex+4]])
+            tmp = tmp+1
+        elif description[startIndex+6:startIndex+7] == "or":
+            startIndex = startIndex + 12 #fix this
+            prereq[tmp].append([description[startIndex:startIndex+4]])
+
 
 
 scrapeMenu(URL)
-buildGraph(courses, links)
+scrapeCourse(links[29],"abc")
+
 
 
 
