@@ -157,7 +157,7 @@ def exportTXT(name, description, prereq, term, course_writer):
         id = name[2:6]
         result.append(id)
         if len(prereq) == 0:
-            result.append("None")
+            result.append("base")
         else:
             for p in prereq:
                 result.append(toString(p))
