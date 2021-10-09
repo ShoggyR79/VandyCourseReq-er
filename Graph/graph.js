@@ -240,3 +240,8 @@ graph.addClass("1101");
 for(var i = 0; i < graph.availableClasses().length; ++i){
     console.log(graph.availableClasses()[i]);
 }*/
+
+module.exports = {
+    getCourseDetails,
+    getDisplay
+}
