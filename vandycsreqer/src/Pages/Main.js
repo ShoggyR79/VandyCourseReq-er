@@ -4,16 +4,30 @@ import Course from '../Components/Course'
 export default function Main() {
 
     let courseList = [
-        { id: 1, name: "CS1101", isTaken: false },
+        [{ id: 1, name: "CS1101", isTaken: false }],
+
+        [{ id: 1, name: "CS1104", isTaken: false },
         { id: 1, name: "CS2201", isTaken: false },
-        { id: 1, name: "CS2212", isTaken: false },
+        { id: 1, name: "CS2212", isTaken: false },],
+
+        [{ id: 1, name: "CS1151", isTaken: false },
+
+        { id: 1, name: "CS3520", isTaken: false },]
     ]
 
-    const renderCourses = () => {
-        return courseList.map((course, index) => {
+    const renderLine = (line) => {
+        return line.map((course, index) => {
             return <div className="col-4 d-flex justify-content-center" key={index}>
                 <Course course={course}></Course>
             </div >
+        })
+    }
+    const renderCourses = () => {
+
+        return courseList.map((courses) => {
+            return <div className="row d-flex justify-content-center mt-5">
+                {renderLine(courses)}
+            </div>
         })
     }
     return (
@@ -31,7 +45,7 @@ export default function Main() {
                     </button> */}
                 </div>
             </div>
-            <div className="row mt-2">
+            <div className="">
                 {renderCourses()}
 
             </div>
