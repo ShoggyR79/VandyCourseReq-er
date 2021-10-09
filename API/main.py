@@ -123,6 +123,7 @@ def getPreReqs(startIndex, description, prereq, name):
 
     if (name == "CS3262 - Applied Machine Learning"): #special case, fix if have time
         prereq.append([])
+        prereq[0].append("1100")
         prereq[0].append("2201")
         prereq[0].append("2204")
         return
@@ -133,12 +134,6 @@ def getPreReqs(startIndex, description, prereq, name):
         prereq[0].append("1104")
         return
 
-    if (name == "CS3262 - Applied Machine Learning"):  # special case, fix if have time
-        prereq.append([])
-        prereq[0].append("1100")
-        prereq[0].append("2201")
-        prereq[0].append("2204")
-        return
 
     if (name == "CS2204 - Program Design and Data Structures for Scientific Computing"):  # special case, fix if have time
         prereq.append([])
