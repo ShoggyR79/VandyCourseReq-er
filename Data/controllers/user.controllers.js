@@ -1,6 +1,6 @@
 const {User} = require("../models")
 
-const getAllUsers = async (req, res) =>{
+const getAllUsers = async (req, res) => {
 	try {
 		const usersList = await User.findAll();
 		res.status(200).send(usersList)
