@@ -30,35 +30,60 @@ def scrapeMenu(URL):
     links = [course.get_attribute('href') for course in courses]
 
 
-def scrapeCourse(URL, name):
+
+def scrapeCourse(URL, name): #get info on a single course
     driver.get(URL)
     course = WebDriverWait(driver, 10).until(
         EC.presence_of_all_elements_located(
             (By.CSS_SELECTOR, ".course-view__pre___2VF54")))
     description = course[0].text
-    startIndex = description.find("Prerequisite")
+    startIndex = description.find("Prereq")
     prereq = []
-    if description.find("Prerequisite")!= -1:
-        getPreReqs(startIndex, description, prereq)
-    print(prereq)
+    if description.find("Prereq")!= -1:
+        getPreReqs(startIndex, description, prereq, name)
+    print("name:", name, "\n\tPrereqs: ", prereq,"\n\tDescription: ",description)
 
-def getPreReqs(startIndex, description, prereq):
-    startIndex = startIndex + 17
+def getPreReqs(startIndex, description, prereq, name):
+    startIndex = startIndex + description[startIndex:].find("CS") + 3
+    if (name == "CS3262 - Applied Machine Learning"): #special case, fix if have time
+        prereq.append([])
+        prereq[0].append("2201")
+        prereq[0].append("2204")
+        return
+    if (name == "CS2212 - Discrete Structures"): #special case, fix if have time
+        prereq.append([])
+        prereq[0].append("1000")
+        prereq[0].append("1100")
+        prereq[0].append("1101")
+        prereq[0].append("1103")
+        prereq[0].append("1004")
+        prereq[0].append("1151")
+        return
+
     prereq.append([description[startIndex:startIndex+4]])
     tmp = 0
-    while description[startIndex+4:].find("CS") != -1:
-        if description[startIndex+4] == ",":
-            startIndex = startIndex + 9 #fix this
+    while description[startIndex+4:].find("CS") != -1 and startIndex < len(description):
+
+        if description[startIndex+4:description[startIndex+4:].find("CS")+startIndex+4].find(",") != -1 or description[startIndex+4:description[startIndex+4:].find("CS")+startIndex+4].find(";")!= -1: #comma in between --> and
+            startIndex = description[startIndex+4:].find("CS")+startIndex+4+3 #fix this
             prereq.append([description[startIndex:startIndex+4]])
             tmp = tmp+1
-        elif description[startIndex+6:startIndex+7] == "or":
-            startIndex = startIndex + 12 #fix this
+        else:
+
+            startIndex = description[startIndex+4:].find("CS")+startIndex+4 + 3 #fix this
             prereq[tmp].append([description[startIndex:startIndex+4]])
 
 
 
+
 scrapeMenu(URL)
-scrapeCourse(links[29],"abc")
+for i in range(42):
+    scrapeCourse(links[i], courses[i].text)
+    scrapeMenu(URL)
+
+
+
+
 
 
 
