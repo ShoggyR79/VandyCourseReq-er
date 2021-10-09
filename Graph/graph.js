@@ -1,5 +1,12 @@
+const fs = require('fs')
+
 class Graph {
+
     constructor(){
+        let address = "API/course_file.csv";
+        this.prereqs = [];
+        
+        
         this.prereqs = [
             ["1101", "-1"],
             ["1104", "-1"],
@@ -7,15 +14,24 @@ class Graph {
             ["2201", "1101/1104", "-1"],
             ["3250", "2201/2212", "-1"]
         ];
-        this.prereqsSize = 5;
-        this.taken = [
-        ];
+
+        
+        this.taken = ["base"];
+        this.unclicked = [];
+        this.graph = {"base": []};
+    }
+    unclick(id){
+        this.unclicked.push(id);
     }
     getPrereqs(){
         return this.prereqs;
     }
     addClass(id){
         this.taken.push(id);
+        let preCourses = [];
+        for(let i = 0; i < this.prereqs[id].length; ++i){
+
+        }
     }
     availableClasses(){
         var classList = [];
@@ -44,15 +60,16 @@ class Graph {
 
 }
 
+let filename = "API/course_file.txt";
+var text = fs.readFileSync(filename, "utf-8");
+console.log(text);
+// var graph = new Graph(string);
 
-var graph = new Graph();
 
 /*
 for(var i = 0; i < graph.availableClasses().length; ++i){
     console.log(graph.availableClasses()[i]);
 }
-*/
-
 
 
 graph.addClass("1101");
@@ -60,4 +77,4 @@ graph.addClass("1101");
 
 for(var i = 0; i < graph.availableClasses().length; ++i){
     console.log(graph.availableClasses()[i]);
-}
+}*/
