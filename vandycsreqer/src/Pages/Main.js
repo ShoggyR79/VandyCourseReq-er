@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { getDisplay } from '../../../Graph/graph'
 
 import Course from '../Components/Course'
+import { getDisplay } from '../Graph/graph';
 
 export default function Main() {
 
@@ -20,12 +20,12 @@ export default function Main() {
 
     let courseList = []
     const getD = () => {
-        courseList = getDisplay()
+        courseList = getDisplay();
 
     }
 
     useEffect(async () => {
-        getD
+        getD();
     })
 
     const renderLine = (line) => {

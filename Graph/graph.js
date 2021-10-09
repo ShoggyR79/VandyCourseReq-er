@@ -172,6 +172,7 @@ class Graph {
 
 let graph = new Graph();
 let courseInfo  = graph.courseInfo;
+
 function getDisplay(){
     var result = [];
     result.push([]);
@@ -216,14 +217,4 @@ function getCourseDetails(id){
     return dictionary;
 }   
 
-graph.addClass("1101");
-graph.addClass("2201");
-graph.unclick("1101");
 
-console.log(getDisplay());
-
-
-module.exports = {
-    getCourseDetails,
-    getDisplay
-}
