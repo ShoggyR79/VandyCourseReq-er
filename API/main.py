@@ -81,7 +81,7 @@ def scrapeMenu(URL):
     # establishing connection to the main catalog
     driver.get(URL)
     global courses, links
-    courses = WebDriverWait(driver, 10).until(
+    courses = WebDriverWait(driver, 20).until(
         EC.presence_of_all_elements_located(
             (By.CSS_SELECTOR, ".style__item___N3dlN [href]")))  # get all course listing and respective hyperlinks
     links = [course.get_attribute('href') for course in courses]
@@ -151,7 +151,10 @@ def exportCSV(name, description, prereq, term, course_writer):
         result.append(name[9:])
         result.append(description)
         result.append(toString(term))
-        result.append(map.get(id))
+        if id in map.keys():
+            result.append(map.get(id))
+        else:
+            result.append("None")
         #print(result)
         course_writer.writerow(result)
 
