@@ -168,6 +168,7 @@ function getDisplay(){
     result.push([]);
     var layer = 0;
     let classes = graph.availableClasses();
+    console.log(classes);
     for(let i = 0; i < classes.length; ++i){
         if(layer != parseInt(classes[i].substr(0,1))){
             layer = parseInt(classes[i].substr(0,1));
