@@ -3,22 +3,19 @@ import ReactDOM from 'react-dom';
 
 export default class Course extends Component {
 	render() {
+		let { course } = this.props;
+
 		return (
 			<div>
-				<button>{this.show()}</button>
+				<button className={course.taken ? "btn btn-success": "btn btn-warning"}>
+					<div>
+						{course.name}
+						<input className="ml-3" type="checkbox"></input>
+
+					</div>
+				</button>
 			</div>
 		)
 	}
 
-	show(color){
-		const thisCourse = (
-			<div className = 'Course'>
-				<button className = "Course-Button" type="button" color='blue' >
-					CS1101
-				</button>
-			</div>
-		);
-
-		ReactDOM.render(thisCourse, document.getElementById('root'))
-	}
 }
