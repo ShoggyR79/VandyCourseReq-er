@@ -5,10 +5,10 @@ class Graph {
         let address = "API/course_file.csv";
         this.prereqs = [
             ["1101", "-1"],
-            ["1104", "-1"],
-            ["2212", "1101/1104", "-1"],
-            ["2201", "1101/1104", "-1"],
-            ["3250", "2201/2212", "-1"]
+           // ["1104", "-1"],
+           // ["2212", "1101/1104", "-1"],
+           // ["2201", "1101/1104", "-1"],
+           // ["3250", "2201/2212", "-1"]
         ]; 
         this.taken = ["base"];
         this.unclicked = [];
@@ -117,37 +117,34 @@ class Graph {
     }
 
 }
-var graph = new Graph();
+let graph = new Graph();
+let courseInfo  = {
+    "1101": ["Programming and Problem Solving", "Core", "Programming and Problem Solving,An intensive introduction to algorithm development and problem solving on the computer. Structured problem definition, top down and modular algorithm design. Running, debugging, and testing programs. Program documentation. Not open to students who have earned credit for CS 1104 without permission. Total credit for this course and CS 1104 will not exceed 3 credit hours. Credit hours reduced from second course taken (or from test or transfer credit) as appropriate. FALL, SPRING. "],
+}
 
 function getDisplay(){
-    
+    var result = [];
+    result.push([]);
+    var layer = 0;
+    let classes = graph.availableClasses();
+    for(let i = 0; i < classes.length; ++i){
+        if(layer != parseInt(classes[i].substr(0,1))){
+            layer = parseInt(classes[i].substr(0,1));
+        }
+        while(result.length < layer){
+            result.push([]);
+        }
+        let dictionary = {};
+        dictionary["id"] = classes[i];
+        dictionary["name"] = courseInfo[classes[i]][0];
+        dictionary["isTaken"] = graph.taken.includes(classes[i]);
+        dictionary["category"] = courseInfo[classes[i]][1];
+        result[layer-1].push(dictionary);
+    }
+    return result;
 }
 
-
-
-
-console.log("hello")
-var graph = new Graph();
-
-graph.addClass("1101");
-
-graph.addClass("2201");
-
-graph.addClass("3250");
-
-graph.unclick("2201");
-
-for(var i = 0; i < graph.availableClasses().length; ++i){
-    console.log(graph.availableClasses()[i]);
-}
-console.log(graph.graph);
-
-graph.addClass("2201");
-console.log(graph.taken);
-
-for(var i = 0; i < graph.availableClasses().length; ++i){
-    console.log(graph.availableClasses()[i]);
-}
+console.log(getDisplay());
 
 
 
