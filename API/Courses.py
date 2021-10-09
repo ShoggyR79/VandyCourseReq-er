@@ -7,7 +7,16 @@ class Courses:
         self.name = name
         self.description = description
         self.prereqs = prereqs
+        self.weight = map[id]
 
+    def get_id(self):
+        return self.id
+
+    def get_name(self):
+        return self.name
+
+    def get_weight(self):
+        return self.weight
 
     map = {
         1101: "Core",
@@ -44,7 +53,6 @@ class Courses:
         3265: "Data",
         4266: "Data",
 
-
         3860: "Research",
         3861: "Research",
 
@@ -55,10 +63,7 @@ class Courses:
         4287: "Network/Cloud",
         4288: "Network/Cloud",
 
-
-
         4959: "Computer Science Seminar",
-
 
         3252: "Theory"
     }
