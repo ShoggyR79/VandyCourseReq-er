@@ -8,6 +8,12 @@ export default function Main() {
         { id: 2, name: "CS2201", isTaken: true, next: "CS2212", category:"ai" },
         
         { id: 3, name: "CS2212", isTaken: false, next: "CS1111", category:"web"},
+        { id: 4, name: "CS2212", isTaken: false, next: "CS1111", category:"hardware"},
+        { id: 5, name: "CS2212", isTaken: false, next: "CS1111", category:"softwareED"},
+        { id: 6, name: "CS2212", isTaken: false, next: "CS1111", category:"gavr"},
+        { id: 7, name: "CS2212", isTaken: false, next: "CS1111", category:"mlai"},
+        { id: 8, name: "CS2212", isTaken: false, next: "CS1111", category:"data"},
+        { id: 9, name: "CS2212", isTaken: false, next: "CS1111", category:"research"},
     ]
 
     const renderCourses = () => {

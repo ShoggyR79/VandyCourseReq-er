@@ -1,3 +1,9 @@
+input{
+	width: 20px;
+	height: 20px;
+	vertical-align: middle;
+}
+
 button{
 	border-radius: 10px;
 	padding: 15px 32px;
@@ -6,16 +12,14 @@ button{
   	display: inline-block;
 	font-size: 18px;
 	color: white;
+	border: none;
 }
 
-button.btn-taken{
-	/* border-radius: 10px; */
-	/* background-color: orange;  */
+/* button.btn-taken{
   	border: single;
-	border-width: 3px;
+	border-width: 4px;
 	border-color: black;
-  	font-size: 18px;
-}
+} */
 
 button.btn-nottaken{
 	border-radius: 12px;
@@ -23,21 +27,51 @@ button.btn-nottaken{
   	filter: alpha(opacity);
 }
 
-button.core-taken{
+
+button.core{
 	background-color: orange;
 }
 
-input{
-	width: 20px;
-	height: 20px;
-	vertical-align: middle;
-}
-
-button.core{
-	background-color: aqua;
-	color:black
-}
-
 button.ai{
-	background-color: blue;
+	background-color: red;
+}
+
+button.hardware{
+	background-color: brown;
+}
+
+button.softwareED{
+	background-color: blueviolet;
+}
+
+button.gavr{
+	background-color: azure;
+}
+
+button.mlai{
+	background-color: blanchedalmond;
+}
+
+button.data{
+	background-color: royalblue;
+}
+
+button.research{
+	background-color: rosybrown;
+}
+
+button.cybersecurity{
+	background-color: greenyellow;
+}
+
+button.netCloud{
+	background-color: skyblue;
+}
+
+button.seminar{
+	background-color: salmon;
+}
+
+button.theory{
+	background-color: teal;
 }
