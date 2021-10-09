@@ -16,9 +16,10 @@ button{
 
 button.btn-taken{
 	border-radius: 10px;
-  	border: single;
+  	/* border: single;
 	border-width: 4px;
-	border-color: black;
+	border-color: black; */
+	border: none;
 }
 
 button.btn-nottaken{
@@ -26,6 +27,9 @@ button.btn-nottaken{
 	border: none;
 }
 
+button.none{
+	background-color: rebeccapurple;
+}
 
 button.core{
 	background-color: orange;
