@@ -147,8 +147,8 @@ def exportTXT(name, description, prereq, term, course_writer):
         else:
             for p in prereq:
                 result.append(toString(p))
-        result.append(name[9:])
-        result.append(description)
+        result.append("\""+name[9:]+"\"")
+        result.append("\""+description+"\"")
         result.append(toString(term))
         if id in map.keys():
             result.append(map.get(id)+"\n")
