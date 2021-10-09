@@ -21,6 +21,7 @@ class Courses:
     map = {
         1101: "Core",
         1104: "Core",
+        1151: "Core",
         2201: "Core",
         2212: "Core",
         2123: "Core",
