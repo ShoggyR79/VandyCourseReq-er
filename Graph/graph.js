@@ -1,7 +1,6 @@
 const fs = require('fs')
 
 class Graph {
-
     constructor(){
         let address = "API/course_file.csv";
         this.prereqs = [
@@ -14,6 +13,7 @@ class Graph {
         this.taken = ["base"];
         this.unclicked = [];
         this.graph = {"base": []};
+        
     }
     getTaken(){
         return this.taken;
@@ -117,6 +117,15 @@ class Graph {
     }
 
 }
+var graph = new Graph();
+
+function getDisplay(){
+    
+}
+
+
+
+
 console.log("hello")
 var graph = new Graph();
 
