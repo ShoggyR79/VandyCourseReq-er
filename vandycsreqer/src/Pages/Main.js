@@ -16,11 +16,19 @@ export default function Main() {
         { id: 9, name: "CS2212", isTaken: false, next: "CS1111", category:"seminar"},
         ]
 
-    const renderCourses = () => {
-        return courseList.map((course, index) => {
+    const renderLine = (line) => {
+        return line.map((course, index) => {
             return <div className="col-4 d-flex justify-content-center" key={index}>
                 <Course course={course}></Course>
             </div >
+        })
+    }
+    const renderCourses = () => {
+
+        return courseList.map((courses) => {
+            return <div className="row d-flex justify-content-center mt-5">
+                {renderLine(courses)}
+            </div>
         })
     }
     return (
@@ -38,7 +46,7 @@ export default function Main() {
                     </button> */}
                 </div>
             </div>
-            <div className="row mt-2">
+            <div className="">
                 {renderCourses()}
 
             </div>
