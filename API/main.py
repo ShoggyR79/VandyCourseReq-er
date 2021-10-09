@@ -112,7 +112,8 @@ def scrapeCourse(URL, name, course_writer): #get info on a single course
         if description[startIndex:].find("SPRING") != -1 and description[startIndex:].find("FALL") == -1:
             term = ["SPRING"]
     print("name:", name, "\n\tPrereqs: ", prereq,"\n\tDescription: ",description, "\n\tTerm: ",term)
-    exportTXT(name, description, prereq, term, course_writer)
+    if(name != "CS3891 - Special Topics" and name != "CS3892 - Special Topics"):
+        exportTXT(name, description, prereq, term, course_writer)
 
 def getPreReqs(startIndex, description, prereq, name):
     startIndex = startIndex + description[startIndex:].find(major) + len(major)+1

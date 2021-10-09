@@ -39,9 +39,9 @@ function buildCourseList(text){
     var i=0;
     while(text[startIndex]== "1" || text[startIndex]== "2" || text[startIndex]== "3" || text[startIndex]== "4"){ //check if end of file is not reached
         var id = text.slice(startIndex,startIndex + 4);
-        var name = text.slice(text.slice(startIndex).search("\"")+startIndex  ,  text.slice(text.slice(startIndex).search("\"")+startIndex+1).search("\"")+1+startIndex+1);
-        console.log(text.slice(text.slice(startIndex).search("\"")+startIndex+1).search("\"")+1+startIndex+1)
-        startIndex = text.slice(startIndex+1).search("\"")+1+startIndex;
+        var name = text.slice(text.slice(startIndex).search("\"")+startIndex,  text.slice(text.slice(startIndex).search("\"")+startIndex+1).search("\"")+1+startIndex+11);
+        console.log(name);
+        startIndex = text.slice(text.slice(startIndex).search("\"")+startIndex+1).search("\"")+1+startIndex+11;
         var description = text.slice(text.slice(startIndex).search("\"")+startIndex+1,text.slice(startIndex+1).search("]")+1+startIndex+1);
         startIndex = text.slice(startIndex+1).search("]")+3+startIndex;
         var term = text.slice(startIndex,text.slice(startIndex).search(",")+startIndex);
