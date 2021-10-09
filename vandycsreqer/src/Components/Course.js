@@ -5,18 +5,18 @@ export default class Course extends Component {
 	render() {
 		return (
 			<div>
-				<button>{this.show()}</button>
+				{this.show('blue')}
 			</div>
 		)
 	}
 
 	show(color){
 		const thisCourse = (
-			<div className = 'Course'>
-				<button className = "Course-Button" type="button" color='blue' >
-					CS1101
-				</button>
-			</div>
+			<button className = "Course-Button" type="button" color={color} >
+				<div>
+				CS1101
+				</div>
+			</button>
 		);
 
 		ReactDOM.render(thisCourse, document.getElementById('root'))
