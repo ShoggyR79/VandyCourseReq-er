@@ -1,24 +1,20 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
+import './Course.css'
 
 export default class Course extends Component {
 	render() {
+		let { course } = this.props;
+
 		return (
 			<div>
-				{this.show('blue')}
+				<button className={course.taken ? "btn-taken": "btn-nottaken"}>
+					<div>
+						{course.name}
+						<input className="ml-3" type="checkbox"></input>
+					</div>
+				</button>
 			</div>
 		)
-	}
-
-	show(color){
-		const thisCourse = (
-			<button className = "Course-Button" type="button" color={color} >
-				<div>
-				CS1101
-				</div>
-			</button>
-		);
-
-		ReactDOM.render(thisCourse, document.getElementById('root'))
 	}
 }
