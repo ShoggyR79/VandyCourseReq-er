@@ -1,4 +1,5 @@
 import React from 'react'
+import Course from '../Components/Course'
 
 export default function Main() {
     return (
