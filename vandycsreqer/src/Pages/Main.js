@@ -4,9 +4,10 @@ import Course from '../Components/Course'
 export default function Main() {
 
     let courseList = [
-        { id: 1, name: "CS1101", isTaken: false },
-        { id: 1, name: "CS2201", isTaken: false },
-        { id: 1, name: "CS2212", isTaken: false },
+        { id: 1, name: "CS1101", isTaken: false, next: "CS2212", category:"core"},
+        { id: 2, name: "CS2201", isTaken: true, next: "CS2212", category:"ai" },
+        
+        { id: 3, name: "CS2212", isTaken: false, next: "CS1111", category:"web"},
     ]
 
     const renderCourses = () => {

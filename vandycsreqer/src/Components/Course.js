@@ -8,7 +8,7 @@ export default class Course extends Component {
 
 		return (
 			<div>
-				<button className={course.taken ? "btn-taken": "btn-nottaken"}>
+				<button className={course.isTaken ? "btn-taken " + course.category : "btn-nottaken " + course.category}>
 					<div>
 						{course.name}
 						<input className="ml-3" type="checkbox"></input>
@@ -18,3 +18,4 @@ export default class Course extends Component {
 		)
 	}
 }
+
