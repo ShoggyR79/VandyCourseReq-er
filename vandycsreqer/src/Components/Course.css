@@ -12,19 +12,18 @@ button{
   	display: inline-block;
 	font-size: 18px;
 	color: white;
-	border: none;
 }
 
-/* button.btn-taken{
+button.btn-taken{
+	border-radius: 10px;
   	border: single;
 	border-width: 4px;
 	border-color: black;
-} */
+}
 
 button.btn-nottaken{
-	border-radius: 12px;
-  	opacity: 0.4;
-  	filter: alpha(opacity);
+	border-radius: 15px;
+	border: none;
 }
 
 
@@ -45,11 +44,11 @@ button.softwareED{
 }
 
 button.gavr{
-	background-color: azure;
+	background-color: gold;
 }
 
 button.mlai{
-	background-color: blanchedalmond;
+	background-color: green;
 }
 
 button.data{
