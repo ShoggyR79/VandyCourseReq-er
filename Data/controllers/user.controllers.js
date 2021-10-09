@@ -1,4 +1,6 @@
 const {User} = require("../models")
+const bcryptjs = require("bcryptjs");
+
 
 const getAllUsers = async (req, res) =>{
 	try {
@@ -44,10 +46,24 @@ const updateUserByID = async(req, res) => {
 	}
 }
 
+const createUser = async(req, res) =>{
+    const {password} = req.body;
+
+    try {
+        const salt = bcryptjs.genSaltSync(10)
+        const hashPassword = bcryptjs.hashSync(password, salt);
+        const newUser = await User.create({...req.body, password:hashPassword})
+        res.status(201).send(newUser)
+    } catch (error) {
+        
+    }
+}
+
 
 module.exports = {
 	getAllUsers,
 	getUserByID,
 	removeUserByID,
-	updateUserByID
+	updateUserByID,
+    createUser
 }
