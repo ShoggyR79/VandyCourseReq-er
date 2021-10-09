@@ -159,8 +159,11 @@ def exportTXT(name, description, prereq, term, course_writer):
 
 def toString(p):
     tmp = ""
-    for q in p:
-        tmp = tmp+"/"+q
+    for i in range(0,len(p)):
+        if i == 0:
+            tmp = tmp + p[0]
+        else:
+            tmp = tmp+"/"+p[i]
     return tmp
 
 def writeList(result):
