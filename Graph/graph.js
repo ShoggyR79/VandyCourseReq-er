@@ -1,32 +1,33 @@
+const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
+const fs = require('fs')
+
 class Graph {
+
     constructor(){
-        this.prereqs = [
-            ["1101", "-1"],
-            ["1104", "-1"],
-            ["2212", "1101/1104", "-1"],
-            ["2201", "1101/1104", "-1"],
-            ["3250", "2201/2212", "-1"]
-        ];
-        this.prereqsSize = 5;
-        this.taken = [
-        ];
-    }
-    getPrereqs(){
-        return this.prereqs;
-    }
-    addClass(id){
-        this.taken.push(id);
+        let address = "API/course_file.csv";
+
+        this.prereqs = {
+            "1101": ["-1"],
+            "1104": ["-1"],
+            "2212": ["1101/1104", "-1"],
+            "2201": ["1101/1104", "-1"],
+            "3250": ["2201/2212", "-1"]
+        };
+        
+        this.taken = ["base"];
+        this.unclicked = [];
+        this.graph = {"base": []};
     }
     availableClasses(){
         var classList = [];
-        for(var i = 0; i < this.prereqsSize; ++i){
-            if(this.taken.includes(this.prereqs[i][0]))
+        for(key in this.prereqs){
+            if(this.taken.includes(key))
                 continue;
         
-            for(var j = 1; j < this.prereqs[i].length; ++j){
-                let currID = this.prereqs[i][j];
-                if(currID == -1){
-                    classList.push(this.prereqs[i][0]);
+            for(var j = 1; j < this.prereqs[key].length; ++j){
+                let currID = this.prereqs[key][j];
+                if(currID == "-1"){
+                    classList.push(key);
                     break;
                 }
                 
@@ -41,23 +42,31 @@ class Graph {
         }
         return classList;
     }
+    /*
+    addClass(id){
+        this.taken.push(id);
+        let preCourses = [];
+        for(let i = 0; i < this.prereqs[id].length; ++i){
+            
+        }
+    }
+    getPrereqs(){
+        return this.prereqs;
+    }
+    unclick(id){
+        this.unclicked.push(id);
+    }
+    */
 
 }
 
+let graph = new Graph();
+console.log(graph.availableClasses());
 
-var graph = new Graph();
 
 /*
-for(var i = 0; i < graph.availableClasses().length; ++i){
-    console.log(graph.availableClasses()[i]);
-}
+let filename = "API/course_file.csv";
+var text = fs.readFileSync(filename);
+var textByLine = text.split("\n");
+console.log(text);
 */
-
-
-
-graph.addClass("1101");
-
-
-for(var i = 0; i < graph.availableClasses().length; ++i){
-    console.log(graph.availableClasses()[i]);
-}
