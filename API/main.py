@@ -88,11 +88,13 @@ def scrapeMenu(URL):
 
 
 def scrapeAll(URL):
-    with open('course_file.csv', mode='w') as course_file:
-        course_writer = csv.writer(course_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        for i in range(len(courses)):
-            scrapeCourse(links[i], courses[i].text, course_writer)
-            scrapeMenu(URL)
+
+    course_writer = open("course_file.txt","w")
+
+    for i in range(len(courses)):
+        scrapeCourse(links[i], courses[i].text, course_writer)
+        scrapeMenu(URL)
+    course_writer.close()
 
 def scrapeCourse(URL, name, course_writer): #get info on a single course
     driver.get(URL)
@@ -110,7 +112,7 @@ def scrapeCourse(URL, name, course_writer): #get info on a single course
         if description[startIndex:].find("SPRING") != -1 and description[startIndex:].find("FALL") == -1:
             term = ["SPRING"]
     #print("name:", name, "\n\tPrereqs: ", prereq,"\n\tDescription: ",description, "\n\tTerm: ",term)
-    exportCSV(name, description, prereq, term, course_writer)
+    exportTXT(name, description, prereq, term, course_writer)
 
 def getPreReqs(startIndex, description, prereq, name):
     startIndex = startIndex + description[startIndex:].find(major) + len(major)+1
@@ -121,12 +123,6 @@ def getPreReqs(startIndex, description, prereq, name):
         return
     if (name == "CS2212 - Discrete Structures"): #special case, fix if have time
         prereq.append([])
-        prereq[0].append("1000")
-        prereq[0].append("1100")
-        prereq[0].append("1101")
-        prereq[0].append("1103")
-        prereq[0].append("1004")
-        prereq[0].append("1151")
         return
 
     prereq.append([description[startIndex:startIndex+4]])
@@ -142,27 +138,36 @@ def getPreReqs(startIndex, description, prereq, name):
             startIndex = description[startIndex+4:].find(major)+startIndex+4 + len(major)+1 #fix this
             prereq[tmp].append([description[startIndex:startIndex+4]])
 
-def exportCSV(name, description, prereq, term, course_writer):
+def exportTXT(name, description, prereq, term, course_writer):
         result = []
         id = name[2:6]
         result.append(id)
-        for p in prereq:
-            result.append(toString(p))
+        if len(prereq) == 0:
+            result.append("None")
+        else:
+            for p in prereq:
+                result.append(toString(p))
         result.append(name[9:])
         result.append(description)
         result.append(toString(term))
         if id in map.keys():
-            result.append(map.get(id))
+            result.append(map.get(id)+"\n")
         else:
-            result.append("None")
+            result.append("None"+"\n")
         #print(result)
-        course_writer.writerow(result)
+        course_writer.write(writeList(result))
 
 def toString(p):
     tmp = ""
     for q in p:
         tmp = tmp+"/"+q
     return tmp
+
+def writeList(result):
+    tmp = ""
+    for i in range(len(result)-1):
+        tmp = tmp + result[i] + ","
+    return tmp + result[(len(result)-1)]
 
 
 scrapeMenu(URL)
