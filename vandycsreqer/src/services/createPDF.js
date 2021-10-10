@@ -28,7 +28,7 @@ export function printPDF(courses, doc) {
 
   }
   const date = new Date();
-  doc.save("report " + date + ".pdf"); // will save the file in the current working directory
+  doc.save("PossibleReport_" + date + ".pdf"); // will save the file in the current working directory
 }
 
 export function printTakenPDF(courses, doc) {
@@ -36,7 +36,7 @@ export function printTakenPDF(courses, doc) {
   var count = 0;
   var tmp = '';
   doc.setFontSize(26);
-  doc.setFont(undefined, "bold").text("Recommended Courses", 10, 15 + 10 * gap);
+  doc.setFont(undefined, "bold").text("Courses Taken", 10, 15 + 10 * gap);
   doc.setFontSize(16);
   for (let i = 0; i < courses.length; i++) {
     for (let j = 0; j < courses[i].length; j++) {
@@ -56,7 +56,7 @@ export function printTakenPDF(courses, doc) {
 
   }
   const date = new Date();
-  doc.save("report " + date + ".pdf"); // will save the file in the current working directory
+  doc.save("TakenReport_" + date + ".pdf"); // will save the file in the current working directory
 }
 
 function textWrapper(text) {

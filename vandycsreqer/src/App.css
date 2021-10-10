@@ -1,38 +1,47 @@
-.App {
-  text-align: center;
+div.none {
+  color: rebeccapurple;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+div.core {
+  color: orange;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+div.hardware {
+  color: brown;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+div.softwareED {
+  color: blueviolet;
 }
 
-.App-link {
-  color: #61dafb;
+div.gavr {
+  color: purple;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+div.mlai {
+  color: green;
+}
+
+div.data {
+  color: royalblue;
+}
+
+div.research {
+  color: rosybrown;
+}
+
+div.cybersecurity {
+  color: goldenrod;
+}
+
+div.netCloud {
+  color: skyblue;
+}
+
+div.seminar {
+  color: salmon;
+}
+
+div.theory {
+  color: teal;
 }
