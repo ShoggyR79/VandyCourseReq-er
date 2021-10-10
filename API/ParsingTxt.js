@@ -60,7 +60,7 @@ function buildCourseList(text) {
         return courseList;
     }
 test = {}
-test = buildCourseList(text);
+test = buildPrereqList(text);
 console.log(test)
 
 
