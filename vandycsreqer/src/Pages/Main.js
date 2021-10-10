@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import backgroundIMG from '../images/space1.jpg'
-import {jsPDF} from 'jspdf'
+import { jsPDF } from 'jspdf'
 
 
 import Course from '../Components/Course'
 import { changeTaken, getCourses } from '../redux/actions/CourseAction'
-import { printPDF } from '../services/createPDF';
+import { printPDF, printTakenPDF } from '../services/createPDF';
 
 export default function Main() {
 
@@ -56,6 +56,10 @@ export default function Main() {
         const doc = new jsPDF();
         printPDF(courseList, doc)
     }
+    const generateTakenPDF = () => {
+        const doc = new jsPDF();
+        printTakenPDF(courseList, doc)
+    }
     return (
         <div style={courseList.length < 3 ? { backgroundImage: `url(${backgroundIMG})`, height: "100%", width: "100%", position: "absolute" } : { backgroundImage: `url(${backgroundIMG})` }}>
             <div className="container">
@@ -72,7 +76,12 @@ export default function Main() {
 
 
                         </a>
-                        <button className="btn btn-success d-flex justify-content-right" onClick={generateFilePDF}>Generate PDF</button>
+                        <div className="d-flex justify-content-right d-flex justify-content-right">
+                            <button className="btn btn-primary " onClick={generateTakenPDF}>Generate Taken Courses PDF</button>
+                            <button className="btn btn-success ml-3 " onClick={generateFilePDF}>Generate Possible Courses PDF</button>
+                        </div>
+
+
                         {/* <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button> */}
