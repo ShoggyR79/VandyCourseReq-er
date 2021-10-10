@@ -4,7 +4,7 @@ const fs = require('fs')
 
 class Graph {
     constructor() {
-        let filename = "../API/course_file.txt";
+        let filename = "API/course_file.txt";
         var text = fs.readFileSync(filename, "utf-8");
         this.prereqs = this.buildPrereqList(text);
         this.courseInfo = this.buildCourseList(text);
@@ -84,7 +84,7 @@ class Graph {
                 }
                 if (!this.taken.includes(currID) && currID.length == 4)
                     break;
-                else if (currID.length == 9 && !this.taken.includes(currID.substr(0, 4)) && !this.taken.includes(currID.substr(4, 4))) {
+                else if ((currID.length == 9) && ((!this.taken.includes(currID.substr(0, 4))) && (!this.taken.includes(currID.substr(5, 4))))) {
                     break;
                 }
             }
@@ -180,16 +180,9 @@ function getDisplay() {
     result.push([]);
     var layer = 0;
     let classes = graph.availableClasses();
-<<<<<<< HEAD
     for(let i = 0; i < classes.length; ++i){
         if(layer != parseInt(classes[i].substr(0,1))){
             layer = parseInt(classes[i].substr(0,1));
-=======
-    console.log(classes);
-    for (let i = 0; i < classes.length; ++i) {
-        if (layer != parseInt(classes[i].substr(0, 1))) {
-            layer = parseInt(classes[i].substr(0, 1));
->>>>>>> 2e7a5b851d9ae879ccea7a6f4e34c90fbd5d9cb5
         }
         while (result.length < layer) {
             result.push([]);
@@ -201,33 +194,33 @@ function getDisplay() {
         dictionary["category"] = courseInfo[classes[i]][1];
         result[layer - 1].push(dictionary);
     }
-    for(let i = 0; i < graph.taken.length; ++i){
+    for(let i = 1; i < graph.taken.length; ++i){
         let layer = graph.taken[i].substr(0,1);
         if(layer != parseInt(classes[i].substr(0,1))){
             layer = parseInt(classes[i].substr(0,1));
         }
         let dictionary = {};
         dictionary["id"] = graph.taken[i];
-        dictionary["name"] = courseInfo[classes[i]][0];
+        dictionary["name"] = courseInfo[graph.taken[i]][0];
         dictionary["isTaken"] = true;
-        dictionary["category"] = courseInfo[classes[i]][1];
+        dictionary["category"] = courseInfo[graph.taken[i]][1];
+        let added = false;
         for(let j = 0; j < result[layer-1].length; ++j){
-            if(parseInt(graph.taken[i]) < parseInt(result[i][j]))
-                result.splice(j, 0, dictionary);
+            var id = result[layer-1][j]["id"];
+            if(parseInt(graph.taken[i]) < parseInt(id)){
+                result[layer-1].splice(j, 0, dictionary);
+                added = true;
+                break;
+            }
         }
+        if(!added)
+            result.push(dictionary);
     }
     return result;
 }
 
-<<<<<<< HEAD
 function check(id){
     if(graph.taken.includes(id)){
-=======
-function check(id, isTaken) {
-    // isTaken = true = uncheck
-    // isTaken = false = check
-    if (isTaken) {
->>>>>>> 2e7a5b851d9ae879ccea7a6f4e34c90fbd5d9cb5
         graph.unclick(id);
     }
     else {
@@ -246,13 +239,12 @@ function getCourseDetails(id) {
     return dictionary;
 }
 
+console.log(getDisplay());
+console.log(check("1104"));
+console.log(check("1104"));
+console.log(graph.availableClasses());
 
 module.exports = {
-<<<<<<< HEAD
-    getDisplay, 
-}
-=======
     getDisplay,
     check
 }
->>>>>>> 2e7a5b851d9ae879ccea7a6f4e34c90fbd5d9cb5
