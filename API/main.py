@@ -23,6 +23,7 @@ class Course(object):
 map = {
         "1101": "core",
         "1104": "core",
+        "1151": "core",
         "2201": "core",
         "2212": "core",
         "2123": "core",
