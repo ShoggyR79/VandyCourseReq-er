@@ -239,8 +239,8 @@ function getCourseDetails(id) {
     return dictionary;
 }
 
-check("1104");
-console.log(check("2201"));
+console.log(graph.prereqs);
+console.log(courseInfo);
 
 module.exports = {
     getDisplay,
