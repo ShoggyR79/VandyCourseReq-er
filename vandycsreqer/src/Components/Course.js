@@ -33,6 +33,7 @@ export default class Course extends Component {
 								</button>
 							</div>
 							<div class="modal-body">
+								<p>{course.description.substring(1)}</p>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

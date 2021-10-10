@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import backgroundIMG from '../images/space1.jpg'
 
 
 import Course from '../Components/Course'
@@ -32,7 +33,7 @@ export default function Main() {
         dispatch(changeTaken(id))
     }
 
-    
+
     const renderLine = (line) => {
         return line.map((course, index) => {
             return <div className="col-3 d-flex justify-content-center mt-3" key={index}>
@@ -49,23 +50,25 @@ export default function Main() {
         })
     }
     return (
-        <div className="container">
-            <div class="navbar navbar-dark bg-dark shadow-sm">
-                <div class="container d-flex justify-content-between">
-                    <a href="#" class="navbar-brand d-flex align-items-center">
-                        <i class="fas fa-laptop-code"></i>
+        <div style={courseList.length < 3 ? { backgroundImage: `url(${backgroundIMG})`, height: "100%", width: "100%", position: "absolute" } : { backgroundImage: `url(${backgroundIMG})` }}>
+            <div className="container">
+                <div class="navbar navbar-dark bg-dark shadow-sm">
+                    <div class="container d-flex justify-content-between">
+                        <a href="#" class="navbar-brand d-flex align-items-center">
+                            <i class="fas fa-laptop-code"></i>
 
 
-                        <strong className="ml-2">Vanderbilt CS Course Rec</strong>
-                    </a>
-                    {/* <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                            <strong className="ml-2">Vanderbilt CS Course Rec</strong>
+                        </a>
+                        {/* <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button> */}
+                    </div>
                 </div>
-            </div>
-            <div className="">
-                {renderCourses()}
+                <div className="">
+                    {renderCourses()}
 
+                </div>
             </div>
         </div>
     )
