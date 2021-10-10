@@ -161,7 +161,7 @@ class Graph {
             startIndex = text.slice(startIndex).search(",") + startIndex;
             var term = text.slice(startIndex + 1, text.slice(startIndex + 1).search(",") + startIndex + 1);
             startIndex = text.slice(startIndex + 1).search(",") + startIndex + 1
-            var cat = text.slice(startIndex + 1, text.slice(startIndex).search("\r") + startIndex);
+            var cat = text.slice(startIndex + 1, text.slice(startIndex).search("\n") + startIndex);
             courseList[id] = [name, cat, description, term];
             startIndex = text.slice(startIndex + 1).search("\n") + 1 + startIndex + 1;
             //console.log(id, name, cat, description, term);
@@ -214,7 +214,7 @@ function getDisplay() {
             }
         }
         if(!added)
-            result.push(dictionary);
+            result[layer-1].push(dictionary);
     }
     return result;
 }
@@ -239,10 +239,8 @@ function getCourseDetails(id) {
     return dictionary;
 }
 
-console.log(getDisplay());
-console.log(check("1104"));
-console.log(check("1104"));
-console.log(graph.availableClasses());
+check("1104");
+console.log(check("2201"));
 
 module.exports = {
     getDisplay,
