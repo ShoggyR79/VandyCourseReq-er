@@ -33,32 +33,35 @@ function buildPrereqList(text){
 }
 
 
-function buildCourseList(text){
-    courseList = {}
-    var startIndex = 0;
-    var i=0;
-    while(text[startIndex]== "1" || text[startIndex]== "2" || text[startIndex]== "3" || text[startIndex]== "4"){ //check if end of file is not reached
-        var id = text.slice(startIndex,startIndex + 4);
-        var name = text.slice(text.slice(startIndex).search("\"")+startIndex,  text.slice(text.slice(startIndex).search("\"")+startIndex+1).search("\"")+1+startIndex+11);
-        console.log("hello");
-        console.log((text.slice(startIndex).search("\"")+startIndex+1).search("\"")== 0);
-        startIndex = text.slice(text.slice(startIndex).search("\"")+startIndex+1).search("\"")+1+startIndex+11;
-    
-        var description = text.slice(startIndex+2,text.slice(startIndex+1).search("]")+1+startIndex+1);
-        startIndex = text.slice(startIndex+1).search("]")+3+startIndex;
-        startIndex = text.slice(startIndex).search(",")+startIndex;
-        var term = text.slice(startIndex+1,text.slice(startIndex+1).search(",")+startIndex+1);
-        startIndex = text.slice(startIndex+1).search(",")+startIndex+1
-        var cat = text.slice(startIndex+1,text.slice(startIndex).search("\n")+startIndex);
-        courseList[id] = [name, cat, description, term];
-        startIndex = text.slice(startIndex+1).search("\n")+1+startIndex+1;
-        //console.log(id, name, cat, description, term);
+function buildCourseList(text) {
+        var courseList = {}
+        var startIndex = 0;
+        var i = 0;
+        while (text[startIndex] == "1" || text[startIndex] == "2" || text[startIndex] == "3" || text[startIndex] == "4") { //check if end of file is not reached
+            var id = text.slice(startIndex, startIndex + 4);
+            var name = text.slice(text.slice(startIndex).search("\"") + startIndex+1, text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\"") + text.slice(startIndex).search("\"") + startIndex+1);
+            //console.log("hello");
+            //console.log(text.slice(startIndex).search("\""));
+            //console.log(text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\""));
+
+            startIndex = text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\"") + text.slice(startIndex).search("\"") + startIndex+1;
+
+            var description = text.slice(startIndex + 2, text.slice(startIndex + 1).search("]") + 1 + startIndex+1);
+            startIndex = text.slice(startIndex + 1).search("]") + 3 + startIndex;
+            startIndex = text.slice(startIndex).search(",") + startIndex;
+            var term = text.slice(startIndex + 1, text.slice(startIndex + 1).search(",") + startIndex + 1);
+            startIndex = text.slice(startIndex + 1).search(",") + startIndex + 1
+            var cat = text.slice(startIndex + 1, text.slice(startIndex).search("\n") + startIndex);
+            courseList[id] = [name, cat, description, term];
+            startIndex = text.slice(startIndex + 1).search("\n") + 1 + startIndex + 1;
+            console.log(name)
+            //console.log(id, name, cat, description, term);
+        }
+        return courseList;
     }
-    return courseList;
-}
 test = {}
-//test = buildCourseList(text);
-//console.log(test)
+test = buildCourseList(text);
+console.log(test)
 
 
 

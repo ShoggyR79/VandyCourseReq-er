@@ -157,7 +157,7 @@ class Graph {
             //console.log(text.slice(startIndex).search("\""));
             //console.log(text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\""));
 
-            startIndex = text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\"") + 1 + startIndex + 11;
+            startIndex = text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\"") + text.slice(startIndex).search("\"") + startIndex+1;
 
             var description = text.slice(startIndex + 2, text.slice(startIndex + 1).search("]") + 1 + startIndex + 1);
             startIndex = text.slice(startIndex + 1).search("]") + 3 + startIndex;
@@ -196,6 +196,8 @@ function getDisplay() {
         dictionary["name"] = courseInfo[classes[i]][0];
         dictionary["isTaken"] = graph.taken.includes(classes[i]);
         dictionary["category"] = courseInfo[classes[i]][1];
+        dictionary["description"] = courseInfo[classes[i]][2];
+        dictionary["term"] = courseInfo[classes[i]][3];
         result[layer - 1].push(dictionary);
     }
     for (let i = 1; i < graph.taken.length; ++i) {
@@ -204,12 +206,13 @@ function getDisplay() {
             result.push([]);
         for (let i = 1; i < graph.taken.length; ++i) {
             let layer = graph.taken[i].substr(0, 1);
-
             let dictionary = {};
             dictionary["id"] = graph.taken[i];
             dictionary["name"] = courseInfo[graph.taken[i]][0];
             dictionary["isTaken"] = true;
             dictionary["category"] = courseInfo[graph.taken[i]][1];
+            dictionary["description"] = courseInfo[graph.taken[i]][2];
+            dictionary["term"] = courseInfo[graph.taken[i]][3];
             let added = false;
             for (let j = 0; j < result[layer - 1].length; ++j) {
                 var id = result[layer - 1][j]["id"];
@@ -250,12 +253,7 @@ function getCourseDetails(id) {
     dictionary["term"] = courseInfo[id][3];
     return dictionary;
 }
-
-console.log(check("1101"));
-console.log(check("2201"));
-
 module.exports = {
     getDisplay,
-    check,
-    getCourseDetails
+    check
 }
