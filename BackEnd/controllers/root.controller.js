@@ -26,9 +26,9 @@ const updateCheck = async (req, res) => {
 
 }
 
-const getCourseByDetails = async(req, res) => {
+const getCourseByDetails = async (req, res) => {
     try {
-        const {id} = req.params;
+        const { id } = req.params;
         const course = await getCourseDetails(id)
         console.log('res', course)
         res.status(200).send(course)

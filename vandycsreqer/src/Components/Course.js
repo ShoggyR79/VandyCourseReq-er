@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
-import { changeTaken } from '../redux/actions/CourseAction';
+import { changeTaken, getDetails } from '../redux/actions/CourseAction';
 import './Course.css'
 
 export default class Course extends Component {
@@ -17,7 +17,7 @@ export default class Course extends Component {
 						<p>{course.name}</p>
 
 					</div>
-					<a href={"#addApplicantModal" + course.id} className="btn btn-success" data-toggle="modal"><i className="material-icons"></i> <span>?</span></a>
+					<a href={"#addApplicantModal" + course.id} className="btn btn-success" data-toggle="modal"><i className="fa fa-info-circle"></i> </a>
 					<input className="ml-3" type="checkbox" onClick={() => {
 						updateChange(course.id)
 					}} defaultChecked={course.isTaken} ></input>
@@ -33,7 +33,6 @@ export default class Course extends Component {
 								</button>
 							</div>
 							<div class="modal-body">
-								{}
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

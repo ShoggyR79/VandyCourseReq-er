@@ -4,7 +4,7 @@ const fs = require('fs')
 
 class Graph {
     constructor() {
-        let filename = "API/course_file.txt";
+        let filename = "../API/course_file.txt";
         var text = fs.readFileSync(filename, "utf-8");
         this.prereqs = this.buildPrereqList(text);
         this.courseInfo = this.buildCourseList(text);
@@ -152,14 +152,14 @@ class Graph {
         var i = 0;
         while (text[startIndex] == "1" || text[startIndex] == "2" || text[startIndex] == "3" || text[startIndex] == "4") { //check if end of file is not reached
             var id = text.slice(startIndex, startIndex + 4);
-            var name = text.slice(text.slice(startIndex).search("\"") + startIndex+1, text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\"") + text.slice(startIndex).search("\"") + startIndex+1);
+            var name = text.slice(text.slice(startIndex).search("\"") + startIndex + 1, text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\"") + text.slice(startIndex).search("\"") + startIndex + 1);
             //console.log("hello");
             //console.log(text.slice(startIndex).search("\""));
             //console.log(text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\""));
-            
+
             startIndex = text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\"") + 1 + startIndex + 11;
 
-            var description = text.slice(startIndex + 2, text.slice(startIndex + 1).search("]") + 1 + startIndex+1);
+            var description = text.slice(startIndex + 2, text.slice(startIndex + 1).search("]") + 1 + startIndex + 1);
             startIndex = text.slice(startIndex + 1).search("]") + 3 + startIndex;
             startIndex = text.slice(startIndex).search(",") + startIndex;
             var term = text.slice(startIndex + 1, text.slice(startIndex + 1).search(",") + startIndex + 1);
@@ -184,9 +184,9 @@ function getDisplay() {
     result.push([]);
     var layer = 0;
     let classes = graph.availableClasses();
-    for(let i = 0; i < classes.length; ++i){
-        if(layer != parseInt(classes[i].substr(0,1))){
-            layer = parseInt(classes[i].substr(0,1));
+    for (let i = 0; i < classes.length; ++i) {
+        if (layer != parseInt(classes[i].substr(0, 1))) {
+            layer = parseInt(classes[i].substr(0, 1));
         }
         while (result.length < layer) {
             result.push([]);
@@ -198,61 +198,41 @@ function getDisplay() {
         dictionary["category"] = courseInfo[classes[i]][1];
         result[layer - 1].push(dictionary);
     }
-    for(let i = 1; i < graph.taken.length; ++i){
-        let layer = graph.taken[i].substr(0,1);
+    for (let i = 1; i < graph.taken.length; ++i) {
+        let layer = graph.taken[i].substr(0, 1);
         while (result.length < layer)
             result.push([]);
-<<<<<<< HEAD
         for (let i = 1; i < graph.taken.length; ++i) {
             let layer = graph.taken[i].substr(0, 1);
-            
+
             let dictionary = {};
             dictionary["id"] = graph.taken[i];
             dictionary["name"] = courseInfo[graph.taken[i]][0];
             dictionary["isTaken"] = true;
             dictionary["category"] = courseInfo[graph.taken[i]][1];
             let added = false;
-            for(let j = 0; j < result[layer-1].length; ++j){
-                var id = result[layer-1][j]["id"];
-                if(id == graph.taken[i]){
+            for (let j = 0; j < result[layer - 1].length; ++j) {
+                var id = result[layer - 1][j]["id"];
+                if (id == graph.taken[i]) {
                     added = true;
                     break;
                 }
-                if(parseInt(graph.taken[i]) < parseInt(id)){
-                    result[layer-1].splice(j, 0, dictionary);
+                if (parseInt(graph.taken[i]) < parseInt(id)) {
+                    result[layer - 1].splice(j, 0, dictionary);
                     added = true;
                     break;
                 }
             }
             console.log(added);
-            if(!added)
-                result[layer-1].push(dictionary);
-        }   
-=======
+            if (!added)
+                result[layer - 1].push(dictionary);
         }
-        let dictionary = {};
-        dictionary["id"] = graph.taken[i];
-        dictionary["name"] = courseInfo[graph.taken[i]][0];
-        dictionary["isTaken"] = true;
-        dictionary["category"] = courseInfo[graph.taken[i]][1];
-        let added = false;
-        for (let j = 0; j < result[layer - 1].length; ++j) {
-            var id = result[layer - 1][j]["id"];
-            if (parseInt(graph.taken[i]) < parseInt(id)) {
-                result[layer - 1].splice(j, 0, dictionary);
-                added = true;
-                break;
-            }
-        }
-        if (!added)
-            result[layer - 1].push(dictionary);
->>>>>>> 8b83e41e4f762fe33199eb2596d6468b56a6a715
     }
     return result;
 }
 
-function check(id){
-    if(graph.taken.includes(id)){
+function check(id) {
+    if (graph.taken.includes(id)) {
         graph.unclick(id);
     }
     else {
