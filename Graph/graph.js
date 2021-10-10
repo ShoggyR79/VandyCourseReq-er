@@ -4,7 +4,7 @@ const fs = require('fs')
 
 class Graph {
     constructor() {
-        let filename = "API/course_file.txt";
+        let filename = "../API/course_file.txt";
         var text = fs.readFileSync(filename, "utf-8");
         this.prereqs = this.buildPrereqList(text);
         this.courseInfo = this.buildCourseList(text);
@@ -152,11 +152,14 @@ class Graph {
         var i = 0;
         while (text[startIndex] == "1" || text[startIndex] == "2" || text[startIndex] == "3" || text[startIndex] == "4") { //check if end of file is not reached
             var id = text.slice(startIndex, startIndex + 4);
-            var name = text.slice(text.slice(startIndex).search("\"") + startIndex, text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\"") + 1 + startIndex + 11);
+            var name = text.slice(text.slice(startIndex).search("\"") + startIndex+1, text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\"") + text.slice(startIndex).search("\"") + startIndex+1);
+            //console.log("hello");
+            //console.log(text.slice(startIndex).search("\""));
+            //console.log(text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\""));
 
-            startIndex = text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\"") + 1 + startIndex + 11;
+            startIndex = text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\"") + text.slice(startIndex).search("\"") + startIndex+1;
 
-            var description = text.slice(startIndex + 2, text.slice(startIndex + 1).search("]") + 1 + startIndex + 1);
+            var description = text.slice(startIndex + 2, text.slice(startIndex + 1).search("]") + 1 + startIndex+1);
             startIndex = text.slice(startIndex + 1).search("]") + 3 + startIndex;
             startIndex = text.slice(startIndex).search(",") + startIndex;
             var term = text.slice(startIndex + 1, text.slice(startIndex + 1).search(",") + startIndex + 1);
@@ -164,6 +167,7 @@ class Graph {
             var cat = text.slice(startIndex + 1, text.slice(startIndex).search("\n") + startIndex);
             courseList[id] = [name, cat, description, term];
             startIndex = text.slice(startIndex + 1).search("\n") + 1 + startIndex + 1;
+            console.log(name)
             //console.log(id, name, cat, description, term);
         }
         return courseList;
@@ -192,6 +196,8 @@ function getDisplay() {
         dictionary["name"] = courseInfo[classes[i]][0];
         dictionary["isTaken"] = graph.taken.includes(classes[i]);
         dictionary["category"] = courseInfo[classes[i]][1];
+        dictionary["description"] = courseInfo[classes[i]][2];
+        dictionary["term"] = courseInfo[classes[i]][3];
         result[layer - 1].push(dictionary);
     }
     for(let i = 1; i < graph.taken.length; ++i){
@@ -200,12 +206,13 @@ function getDisplay() {
             result.push([]);
         for (let i = 1; i < graph.taken.length; ++i) {
             let layer = graph.taken[i].substr(0, 1);
-            
             let dictionary = {};
             dictionary["id"] = graph.taken[i];
             dictionary["name"] = courseInfo[graph.taken[i]][0];
             dictionary["isTaken"] = true;
             dictionary["category"] = courseInfo[graph.taken[i]][1];
+            dictionary["description"] = courseInfo[graph.taken[i]][2];
+            dictionary["term"] = courseInfo[graph.taken[i]][3];
             let added = false;
             for(let j = 0; j < result[layer-1].length; ++j){
                 var id = result[layer-1][j]["id"];
@@ -246,12 +253,7 @@ function getCourseDetails(id) {
     dictionary["term"] = courseInfo[id][3];
     return dictionary;
 }
-
-console.log(courseInfo);
-
-
 module.exports = {
     getDisplay,
-    check,
-    getCourseDetails
+    check
 }
