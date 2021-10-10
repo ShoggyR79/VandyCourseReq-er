@@ -23,7 +23,6 @@ const updateCheck = async (req, res) => {
         res.status(500).send(error)
     }
 
-
 }
 
 const getCourseByDetails = async (req, res) => {

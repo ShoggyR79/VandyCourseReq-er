@@ -1,5 +1,7 @@
+const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
 const { createPublicKey } = require('crypto');
-const fs = require('fs')
+const fs = require('fs');
+const { PassThrough } = require('stream');
 
 
 class Graph {
@@ -11,7 +13,6 @@ class Graph {
         this.taken = ["base"];
         this.unclicked = [];
         this.graph = { "base": [] };
-
     }
     getTaken() {
         return this.taken;
@@ -30,6 +31,13 @@ class Graph {
         this.graph[id] = [];
         let preCourses = [];
         let index = 0;
+        if(id == "2212"){
+            for(let i = 0; i < this.taken.length; ++i){
+                if(this.taken[i].substr(0,1) == "1"){
+                    preCourses.push(this.taken[i]);
+                }
+            }
+        }
         // look for the pre-reqs that allowed me to add this class
         for (let i = 0; i < this.prereqs.length; ++i) {
             if (this.prereqs[i][0] == id) {
@@ -42,8 +50,8 @@ class Graph {
                     if (this.taken.includes(this.prereqs[i][j].substr(0, 4)) && this.prereqs[i][j].length == 9)
                         preCourses.push(this.prereqs[i][j].substr(0, 4));
 
-                    else if (this.prereqs[i][j].length == 9 && this.taken.includes(this.prereqs[i][j].substr(4, 4)))
-                        preCourses.push(this.prereqs[i][j].substr(4, 4));
+                    if (this.prereqs[i][j].length == 9 && this.taken.includes(this.prereqs[i][j].substr(5, 4)))
+                        preCourses.push(this.prereqs[i][j].substr(5, 4));
                 }
             }
         }
@@ -59,7 +67,30 @@ class Graph {
                 this.graph[preCourses[i]] = graphArr;
             }
         }
-        // console.log(this.graph);
+        
+        let alreadyTaken = []
+        for(let i = 0; i < this.taken.length; ++i){
+            let n = 0;
+            for(let m = 0; m < this.prereqs.length; ++m){
+                if(this.prereqs[m][0] == this.taken[i] && this.prereqs[m][0] != id){
+                    n = m;
+                    break;
+                }
+            }
+            // find the class already taken that shoudl be added to the graph
+            console.log(this.prereqs[n]);
+            for(let j = 1; j < this.prereqs[n].length; ++j){
+                if (this.prereqs[n][j] == "-1")
+                    break;
+                if (this.prereqs[n][j] == id && this.prereqs[n][j].length == 4)
+                    alreadyTaken.push(this.prereqs[n][0]);
+
+                if (this.prereqs[n][j].includes(id) && this.prereqs[n][j].length == 9)
+                    alreadyTaken.push(this.prereqs[n][0]);
+            }
+        }
+        this.graph[id] = alreadyTaken;
+
     }
     availableClasses() {
         var classList = [];
@@ -91,18 +122,47 @@ class Graph {
         }
         return classList;
     }
+    updateGraphDelete(id){
+        if(id == "3262"){
+            if((!this.taken.includes("1101")) && (!this.taken.includes("1101")) && (!this.taken.includes("1101")))
+                this.findAllDeleted(id);
+                return;
+        }
+
+        let array = [];
+        for(let i = 0; i < this.prereqs.length; ++i){
+            if(this.prereqs[i][0] == id){
+                array = this.prereqs[i];
+                break;
+            }
+        }
+        for(let i = 0; i < array; ++i){
+            if(array[i].length == 4 && !this.taken.includes(array[i])){
+                this.findAllDeleted(id);
+                break;
+            }
+            if(array[i].length == 9 && (!this.taken.includes(currID.substr(0, 4))) && (!this.taken.includes(currID.substr(5, 4)))){
+                this.findAllDeleted(id);
+                break;
+            }   
+        }
+    }
     findAllDeleted(id) {
         var checkCourses = this.graph[id];
+        // checking if any of the connections should be deleted from graph
         for (let i = 0; i < checkCourses.length; ++i) {
             let exist = false;
             for (var key in this.graph) {
                 if (key == id)
                     continue;
-                if (this.graph[key].includes(checkCourses[i]))
+                // if checkCourse exists as a value in any other key, then don't delete
+                if (this.graph[key].includes(checkCourses[i])){
                     exist = true;
-                break;
+                    break;
+                }
             }
             if (!exist) {
+                this.findAllDeleted(checkCourses[i]);
                 delete this.graph[checkCourses[i]];
                 if (this.taken.includes(checkCourses[i]))
                     this.taken.splice(this.taken.indexOf(checkCourses[i]), 1);
@@ -200,36 +260,34 @@ function getDisplay() {
         dictionary["term"] = courseInfo[classes[i]][3];
         result[layer - 1].push(dictionary);
     }
+    // add taken classes into result
     for (let i = 1; i < graph.taken.length; ++i) {
         let layer = graph.taken[i].substr(0, 1);
         while (result.length < layer)
             result.push([]);
-        for (let i = 1; i < graph.taken.length; ++i) {
-            let layer = graph.taken[i].substr(0, 1);
-            let dictionary = {};
-            dictionary["id"] = graph.taken[i];
-            dictionary["name"] = courseInfo[graph.taken[i]][0];
-            dictionary["isTaken"] = true;
-            dictionary["category"] = courseInfo[graph.taken[i]][1];
-            dictionary["description"] = courseInfo[graph.taken[i]][2];
-            dictionary["term"] = courseInfo[graph.taken[i]][3];
-            let added = false;
-            for (let j = 0; j < result[layer - 1].length; ++j) {
-                var id = result[layer - 1][j]["id"];
-                if (id == graph.taken[i]) {
-                    added = true;
-                    break;
-                }
-                if (parseInt(graph.taken[i]) < parseInt(id)) {
-                    result[layer - 1].splice(j, 0, dictionary);
-                    added = true;
-                    break;
-                }
+        let dictionary = {};
+        dictionary["id"] = graph.taken[i];
+        dictionary["name"] = courseInfo[graph.taken[i]][0];
+        dictionary["isTaken"] = true;
+        dictionary["category"] = courseInfo[graph.taken[i]][1];
+        dictionary["description"] = courseInfo[graph.taken[i]][2];
+        dictionary["term"] = courseInfo[graph.taken[i]][3];
+        let added = false;
+        for (let j = 0; j < result[layer - 1].length; ++j) {
+            var id = result[layer - 1][j]["id"];
+            if (id == graph.taken[i]) {
+                added = true;
+                break;
             }
-            console.log(added);
-            if (!added)
-                result[layer - 1].push(dictionary);
+            if (parseInt(graph.taken[i]) < parseInt(id)) {
+                result[layer - 1].splice(j, 0, dictionary);
+                added = true;
+                break;
+            }
         }
+        if (!added)
+            result[layer - 1].push(dictionary);
+    
     }
     return result;
 }
