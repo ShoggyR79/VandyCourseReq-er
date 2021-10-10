@@ -262,9 +262,6 @@ function getCourseDetails(id) {
     return dictionary;
 }
 
-
-
-
 module.exports = {
     getDisplay,
     check
