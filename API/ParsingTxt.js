@@ -44,7 +44,7 @@ function buildCourseList(text) {
             //console.log(text.slice(startIndex).search("\""));
             //console.log(text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\""));
 
-            startIndex = text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\"") + 1 + startIndex + 11;
+            startIndex = text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\"") + text.slice(startIndex).search("\"") + startIndex+1;
 
             var description = text.slice(startIndex + 2, text.slice(startIndex + 1).search("]") + 1 + startIndex+1);
             startIndex = text.slice(startIndex + 1).search("]") + 3 + startIndex;
@@ -60,8 +60,8 @@ function buildCourseList(text) {
         return courseList;
     }
 test = {}
-//test = buildCourseList(text);
-//console.log(test)
+test = buildCourseList(text);
+console.log(test)
 
 
 
