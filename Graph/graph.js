@@ -1,17 +1,17 @@
+const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
 const { createPublicKey } = require('crypto');
 const fs = require('fs')
 
 
 class Graph {
     constructor() {
-        let filename = "../API/course_file.txt";
+        let filename = "API/course_file.txt";
         var text = fs.readFileSync(filename, "utf-8");
         this.prereqs = this.buildPrereqList(text);
         this.courseInfo = this.buildCourseList(text);
         this.taken = ["base"];
         this.unclicked = [];
         this.graph = { "base": [] };
-
     }
     getTaken() {
         return this.taken;
@@ -66,6 +66,30 @@ class Graph {
                 this.graph[preCourses[i]] = graphArr;
             }
         }
+        
+        let alreadyTaken = []
+        for(let i = 0; i < this.taken.length; ++i){
+            let n = 0;
+            for(let m = 0; m < this.prereqs.length; ++m){
+                if(this.prereqs[m][0] == this.taken[i] && this.prereqs[m][0] != id){
+                    n = m;
+                    break;
+                }
+            }
+            // find the class already taken that shoudl be added to the graph
+            console.log(this.prereqs[n]);
+            for(let j = 1; j < this.prereqs[n].length; ++j){
+                if (this.prereqs[n][j] == "-1")
+                    break;
+                if (this.prereqs[n][j] == id && this.prereqs[n][j].length == 4)
+                    alreadyTaken.push(this.prereqs[n][0]);
+
+                if (this.prereqs[n][j].includes(id) && this.prereqs[n][j].length == 9)
+                    alreadyTaken.push(this.prereqs[n][0]);
+            }
+        }
+        this.graph[id] = alreadyTaken;
+
     }
     availableClasses() {
         var classList = [];
@@ -261,6 +285,13 @@ function getCourseDetails(id) {
     dictionary["term"] = courseInfo[id][3];
     return dictionary;
 }
+
+check("1101");
+check("2201");
+check("3251");
+check("1104");
+console.log(graph.graph)
+console.log(check("1101"));
 
 module.exports = {
     getDisplay,
