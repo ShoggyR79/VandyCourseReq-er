@@ -42,8 +42,8 @@ class Graph {
                     if (this.taken.includes(this.prereqs[i][j].substr(0, 4)) && this.prereqs[i][j].length == 9)
                         preCourses.push(this.prereqs[i][j].substr(0, 4));
 
-                    else if (this.prereqs[i][j].length == 9 && this.taken.includes(this.prereqs[i][j].substr(4, 4)))
-                        preCourses.push(this.prereqs[i][j].substr(4, 4));
+                    if (this.prereqs[i][j].length == 9 && this.taken.includes(this.prereqs[i][j].substr(5, 4)))
+                        preCourses.push(this.prereqs[i][j].substr(5, 4));
                 }
             }
         }
@@ -93,11 +93,14 @@ class Graph {
     }
     findAllDeleted(id) {
         var checkCourses = this.graph[id];
+        console.log(checkCourses);
+        // checking if any of the connections should be deleted from graph
         for (let i = 0; i < checkCourses.length; ++i) {
             let exist = false;
             for (var key in this.graph) {
                 if (key == id)
                     continue;
+                // if checkCourse exists as a value in any other key, then don't delete
                 if (this.graph[key].includes(checkCourses[i])){
                     exist = true;
                     break;
@@ -257,6 +260,7 @@ function getCourseDetails(id) {
 }
 
 check("1101");
+check("1104");
 check("2201");
 check("3251");
 console.log(check("1101"));
