@@ -161,7 +161,7 @@ class Graph {
             startIndex = text.slice(startIndex).search(",") + startIndex;
             var term = text.slice(startIndex + 1, text.slice(startIndex + 1).search(",") + startIndex + 1);
             startIndex = text.slice(startIndex + 1).search(",") + startIndex + 1
-            var cat = text.slice(startIndex + 1, text.slice(startIndex).search("\n") + startIndex);
+            var cat = text.slice(startIndex + 1, text.slice(startIndex).search("\r") + startIndex);
             courseList[id] = [name, cat, description, term];
             startIndex = text.slice(startIndex + 1).search("\n") + 1 + startIndex + 1;
             //console.log(id, name, cat, description, term);
