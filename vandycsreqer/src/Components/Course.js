@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
+import { changeTaken } from '../redux/actions/CourseAction';
 import './Course.css'
 
 export default class Course extends Component {
-	updateChange = (id, taken) => {
-		console.log(id)
-		console.log(taken)
-	}
+
 
 	render() {
-		let { course } = this.props;
+		let { course, updateChange } = this.props;
 
 		return (
 			<div>
@@ -17,7 +15,8 @@ export default class Course extends Component {
 					<div>
 						{course.name}
 						<input className="ml-3" type="checkbox" onClick={() => {
-							this.updateChange(course.id, course.isTaken)
+							console.log("click")
+							updateChange(course.id)
 						}} defaultChecked={course.isTaken} ></input>
 					</div>
 				</button>

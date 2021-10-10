@@ -3,7 +3,9 @@ const { getCourseToDisplay, updateCheck } = require("../controllers/root.control
 const rootRouter = express.Router();
 
 rootRouter.get('/getcourses', getCourseToDisplay)
-rootRouter.post('/check/:id', updateCheck)
+rootRouter.put('/check/:id', updateCheck)
+
+
 
 module.exports = {
     rootRouter

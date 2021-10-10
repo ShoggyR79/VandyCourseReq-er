@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 
 import Course from '../Components/Course'
-import { getCourses } from '../redux/actions/CourseAction'
+import { changeTaken, getCourses } from '../redux/actions/CourseAction'
 
 export default function Main() {
 
@@ -28,10 +28,14 @@ export default function Main() {
         dispatch(getCourses());
     }, [])
 
+    const updateChange = (id) => {
+        dispatch(changeTaken(id))
+    }
+
     const renderLine = (line) => {
         return line.map((course, index) => {
             return <div className="col-3 d-flex justify-content-center mt-3" key={index}>
-                <Course course={course}></Course>
+                <Course course={course} updateChange={updateChange}></Course>
             </div >
         })
     }
