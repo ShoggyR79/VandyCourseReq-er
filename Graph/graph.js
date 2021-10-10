@@ -180,9 +180,9 @@ function getDisplay() {
     result.push([]);
     var layer = 0;
     let classes = graph.availableClasses();
-    for(let i = 0; i < classes.length; ++i){
-        if(layer != parseInt(classes[i].substr(0,1))){
-            layer = parseInt(classes[i].substr(0,1));
+    for (let i = 0; i < classes.length; ++i) {
+        if (layer != parseInt(classes[i].substr(0, 1))) {
+            layer = parseInt(classes[i].substr(0, 1));
         }
         while (result.length < layer) {
             result.push([]);
@@ -194,10 +194,10 @@ function getDisplay() {
         dictionary["category"] = courseInfo[classes[i]][1];
         result[layer - 1].push(dictionary);
     }
-    for(let i = 1; i < graph.taken.length; ++i){
-        let layer = graph.taken[i].substr(0,1);
-        if(layer != parseInt(classes[i].substr(0,1))){
-            layer = parseInt(classes[i].substr(0,1));
+    for (let i = 1; i < graph.taken.length; ++i) {
+        let layer = graph.taken[i].substr(0, 1);
+        if (layer != parseInt(classes[i].substr(0, 1))) {
+            layer = parseInt(classes[i].substr(0, 1));
         }
         let dictionary = {};
         dictionary["id"] = graph.taken[i];
@@ -205,22 +205,22 @@ function getDisplay() {
         dictionary["isTaken"] = true;
         dictionary["category"] = courseInfo[graph.taken[i]][1];
         let added = false;
-        for(let j = 0; j < result[layer-1].length; ++j){
-            var id = result[layer-1][j]["id"];
-            if(parseInt(graph.taken[i]) < parseInt(id)){
-                result[layer-1].splice(j, 0, dictionary);
+        for (let j = 0; j < result[layer - 1].length; ++j) {
+            var id = result[layer - 1][j]["id"];
+            if (parseInt(graph.taken[i]) < parseInt(id)) {
+                result[layer - 1].splice(j, 0, dictionary);
                 added = true;
                 break;
             }
         }
-        if(!added)
-            result[layer-1].push(dictionary);
+        if (!added)
+            result[layer - 1].push(dictionary);
     }
     return result;
 }
 
-function check(id){
-    if(graph.taken.includes(id)){
+function check(id) {
+    if (graph.taken.includes(id)) {
         graph.unclick(id);
     }
     else {
