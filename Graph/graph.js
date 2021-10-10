@@ -262,11 +262,7 @@ function getCourseDetails(id) {
     return dictionary;
 }
 
-check("1104");
-check("2201");
-check("3262");
-check("2204");
-console.log(check("2201"));
+
 
 
 module.exports = {
