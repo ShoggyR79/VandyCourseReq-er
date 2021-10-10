@@ -30,6 +30,13 @@ class Graph {
         this.graph[id] = [];
         let preCourses = [];
         let index = 0;
+        if(id == "2212"){
+            for(let i = 0; i < this.taken.length; ++i){
+                if(this.taken[i].substr(0,1) == "1"){
+                    preCourses.push(this.taken[i]);
+                }
+            }
+        }
         // look for the pre-reqs that allowed me to add this class
         for (let i = 0; i < this.prereqs.length; ++i) {
             if (this.prereqs[i][0] == id) {
@@ -59,7 +66,6 @@ class Graph {
                 this.graph[preCourses[i]] = graphArr;
             }
         }
-        // console.log(this.graph);
     }
     availableClasses() {
         var classList = [];
@@ -93,7 +99,6 @@ class Graph {
     }
     findAllDeleted(id) {
         var checkCourses = this.graph[id];
-        console.log(checkCourses);
         // checking if any of the connections should be deleted from graph
         for (let i = 0; i < checkCourses.length; ++i) {
             let exist = false;
@@ -205,36 +210,34 @@ function getDisplay() {
         dictionary["term"] = courseInfo[classes[i]][3];
         result[layer - 1].push(dictionary);
     }
+    // add taken classes into result
     for (let i = 1; i < graph.taken.length; ++i) {
         let layer = graph.taken[i].substr(0, 1);
         while (result.length < layer)
             result.push([]);
-        for (let i = 1; i < graph.taken.length; ++i) {
-            let layer = graph.taken[i].substr(0, 1);
-            let dictionary = {};
-            dictionary["id"] = graph.taken[i];
-            dictionary["name"] = courseInfo[graph.taken[i]][0];
-            dictionary["isTaken"] = true;
-            dictionary["category"] = courseInfo[graph.taken[i]][1];
-            dictionary["description"] = courseInfo[graph.taken[i]][2];
-            dictionary["term"] = courseInfo[graph.taken[i]][3];
-            let added = false;
-            for (let j = 0; j < result[layer - 1].length; ++j) {
-                var id = result[layer - 1][j]["id"];
-                if (id == graph.taken[i]) {
-                    added = true;
-                    break;
-                }
-                if (parseInt(graph.taken[i]) < parseInt(id)) {
-                    result[layer - 1].splice(j, 0, dictionary);
-                    added = true;
-                    break;
-                }
+        let dictionary = {};
+        dictionary["id"] = graph.taken[i];
+        dictionary["name"] = courseInfo[graph.taken[i]][0];
+        dictionary["isTaken"] = true;
+        dictionary["category"] = courseInfo[graph.taken[i]][1];
+        dictionary["description"] = courseInfo[graph.taken[i]][2];
+        dictionary["term"] = courseInfo[graph.taken[i]][3];
+        let added = false;
+        for (let j = 0; j < result[layer - 1].length; ++j) {
+            var id = result[layer - 1][j]["id"];
+            if (id == graph.taken[i]) {
+                added = true;
+                break;
             }
-            console.log(added);
-            if (!added)
-                result[layer - 1].push(dictionary);
+            if (parseInt(graph.taken[i]) < parseInt(id)) {
+                result[layer - 1].splice(j, 0, dictionary);
+                added = true;
+                break;
+            }
         }
+        if (!added)
+            result[layer - 1].push(dictionary);
+    
     }
     return result;
 }
@@ -259,11 +262,12 @@ function getCourseDetails(id) {
     return dictionary;
 }
 
-check("1101");
 check("1104");
 check("2201");
-check("3251");
-console.log(check("1101"));
+check("3262");
+check("2204");
+console.log(check("2201"));
+
 
 module.exports = {
     getDisplay,
