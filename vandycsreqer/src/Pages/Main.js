@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import backgroundIMG from '../images/space3.jfif'
+import backgroundIMG from '../images/space1.jpg'
 
 
 import Course from '../Components/Course'
@@ -50,7 +50,7 @@ export default function Main() {
         })
     }
     return (
-        <div style={{ backgroundImage: `url(${backgroundIMG})` }}>
+        <div style={courseList.length < 3 ? { backgroundImage: `url(${backgroundIMG})`, height: "100%", width: "100%", position: "absolute" } : { backgroundImage: `url(${backgroundIMG})` }}>
             <div className="container">
                 <div class="navbar navbar-dark bg-dark shadow-sm">
                     <div class="container d-flex justify-content-between">
