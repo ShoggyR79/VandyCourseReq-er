@@ -286,12 +286,8 @@ function getCourseDetails(id) {
     return dictionary;
 }
 
-check("1101");
-check("2201");
-check("3251");
-check("1104");
-console.log(graph.graph)
-console.log(check("1101"));
+
+
 
 module.exports = {
     getDisplay,
