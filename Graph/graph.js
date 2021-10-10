@@ -154,14 +154,14 @@ class Graph {
         var i = 0;
         while (text[startIndex] == "1" || text[startIndex] == "2" || text[startIndex] == "3" || text[startIndex] == "4") { //check if end of file is not reached
             var id = text.slice(startIndex, startIndex + 4);
-            var name = text.slice(text.slice(startIndex).search("\"") + startIndex+1, text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\"") + text.slice(startIndex).search("\"") + startIndex+1);
+            var name = text.slice(text.slice(startIndex).search("\"") + startIndex + 1, text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\"") + text.slice(startIndex).search("\"") + startIndex + 1);
             //console.log("hello");
             //console.log(text.slice(startIndex).search("\""));
             //console.log(text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\""));
 
             startIndex = text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\"") + text.slice(startIndex).search("\"") + startIndex+1;
 
-            var description = text.slice(startIndex + 2, text.slice(startIndex + 1).search("]") + 1 + startIndex+1);
+            var description = text.slice(startIndex + 2, text.slice(startIndex + 1).search("]") + 1 + startIndex + 1);
             startIndex = text.slice(startIndex + 1).search("]") + 3 + startIndex;
             startIndex = text.slice(startIndex).search(",") + startIndex;
             var term = text.slice(startIndex + 1, text.slice(startIndex + 1).search(",") + startIndex + 1);
@@ -186,9 +186,9 @@ function getDisplay() {
     result.push([]);
     var layer = 0;
     let classes = graph.availableClasses();
-    for(let i = 0; i < classes.length; ++i){
-        if(layer != parseInt(classes[i].substr(0,1))){
-            layer = parseInt(classes[i].substr(0,1));
+    for (let i = 0; i < classes.length; ++i) {
+        if (layer != parseInt(classes[i].substr(0, 1))) {
+            layer = parseInt(classes[i].substr(0, 1));
         }
         while (result.length < layer) {
             result.push([]);
@@ -202,8 +202,8 @@ function getDisplay() {
         dictionary["term"] = courseInfo[classes[i]][3];
         result[layer - 1].push(dictionary);
     }
-    for(let i = 1; i < graph.taken.length; ++i){
-        let layer = graph.taken[i].substr(0,1);
+    for (let i = 1; i < graph.taken.length; ++i) {
+        let layer = graph.taken[i].substr(0, 1);
         while (result.length < layer)
             result.push([]);
         for (let i = 1; i < graph.taken.length; ++i) {
@@ -216,28 +216,28 @@ function getDisplay() {
             dictionary["description"] = courseInfo[graph.taken[i]][2];
             dictionary["term"] = courseInfo[graph.taken[i]][3];
             let added = false;
-            for(let j = 0; j < result[layer-1].length; ++j){
-                var id = result[layer-1][j]["id"];
-                if(id == graph.taken[i]){
+            for (let j = 0; j < result[layer - 1].length; ++j) {
+                var id = result[layer - 1][j]["id"];
+                if (id == graph.taken[i]) {
                     added = true;
                     break;
                 }
-                if(parseInt(graph.taken[i]) < parseInt(id)){
-                    result[layer-1].splice(j, 0, dictionary);
+                if (parseInt(graph.taken[i]) < parseInt(id)) {
+                    result[layer - 1].splice(j, 0, dictionary);
                     added = true;
                     break;
                 }
             }
             console.log(added);
-            if(!added)
-                result[layer-1].push(dictionary);
-        }   
+            if (!added)
+                result[layer - 1].push(dictionary);
+        }
     }
     return result;
 }
 
-function check(id){
-    if(graph.taken.includes(id)){
+function check(id) {
+    if (graph.taken.includes(id)) {
         graph.unclick(id);
     }
     else {
