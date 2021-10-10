@@ -1,3 +1,4 @@
+const { createPublicKey } = require('crypto');
 const fs = require('fs')
 
 class Graph {
@@ -178,7 +179,6 @@ function getDisplay(){
     result.push([]);
     var layer = 0;
     let classes = graph.availableClasses();
-    console.log(classes);
     for(let i = 0; i < classes.length; ++i){
         if(layer != parseInt(classes[i].substr(0,1))){
             layer = parseInt(classes[i].substr(0,1));
@@ -193,18 +193,32 @@ function getDisplay(){
         dictionary["category"] = courseInfo[classes[i]][1];
         result[layer-1].push(dictionary);
     }
+    for(let i = 0; i < graph.taken.length; ++i){
+        let layer = graph.taken[i].substr(0,1);
+        if(layer != parseInt(classes[i].substr(0,1))){
+            layer = parseInt(classes[i].substr(0,1));
+        }
+        let dictionary = {};
+        dictionary["id"] = graph.taken[i];
+        dictionary["name"] = courseInfo[classes[i]][0];
+        dictionary["isTaken"] = true;
+        dictionary["category"] = courseInfo[classes[i]][1];
+        for(let j = 0; j < result[layer-1].length; ++j){
+            if(parseInt(graph.taken[i]) < parseInt(result[i][j]))
+                result.splice(j, 0, dictionary);
+        }
+    }
     return result;
 }
 
-function check(id, isTaken){
-    // isTaken = true = uncheck
-    // isTaken = false = check
-    if(isTaken){
+function check(id){
+    if(graph.taken.includes(id)){
         graph.unclick(id);
     }
     else{
         graph.addClass(id);
     }
+    return getDisplay();
 }
 
 function getCourseDetails(id){
@@ -218,3 +232,7 @@ function getCourseDetails(id){
 }   
 
 
+check("1101");
+console.log(getDisplay());
+check("1101");
+console.log(getDisplay());
