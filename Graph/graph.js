@@ -196,8 +196,8 @@ function getDisplay() {
     }
     for(let i = 1; i < graph.taken.length; ++i){
         let layer = graph.taken[i].substr(0,1);
-        if(layer != parseInt(classes[i].substr(0,1))){
-            layer = parseInt(classes[i].substr(0,1));
+        while (result.length < layer) {
+            result.push([]);
         }
         let dictionary = {};
         dictionary["id"] = graph.taken[i];
@@ -213,6 +213,7 @@ function getDisplay() {
                 break;
             }
         }
+        console.log(graph.taken[i], layer);
         if(!added)
             result[layer-1].push(dictionary);
     }
@@ -239,8 +240,8 @@ function getCourseDetails(id) {
     return dictionary;
 }
 
-console.log(graph.prereqs);
-console.log(courseInfo);
+check("1101");
+console.log(check("2201"));
 
 module.exports = {
     getDisplay,
