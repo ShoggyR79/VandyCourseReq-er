@@ -24,3 +24,21 @@ export const getCourses = () => {
         }
     }
 }
+
+export const changeTaken = (id) =>{
+    return async (dispatch) => {
+        try {
+            const result = await axios({
+                url:`${url}/check/${id}`,
+                method:'POST'
+            })
+            dispatch({
+                type: "SET_COURSES_LIST",
+                courses: result.data
+            })
+        }
+        catch(error){
+            console.log(error)
+        }
+    }
+}
