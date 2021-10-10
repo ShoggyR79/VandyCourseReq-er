@@ -58,7 +58,10 @@ export default function Main() {
                             <i class="fas fa-laptop-code"></i>
 
 
-                            <strong className="ml-2">Vanderbilt CS Course Rec</strong>
+                            <strong className="ml-2 mr-2">Vanderbilt CS Buddy</strong>
+                            <i class="fas fa-rocket"></i>
+
+
                         </a>
                         {/* <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
