@@ -6,7 +6,7 @@ const { PassThrough } = require('stream');
 
 class Graph {
     constructor() {
-        let filename = "../API/course_file.txt";
+        let filename = "API/course_file.txt";
         var text = fs.readFileSync(filename, "utf-8");
         this.prereqs = this.buildPrereqList(text);
         this.courseInfo = this.buildCourseList(text);
@@ -312,7 +312,11 @@ function getCourseDetails(id) {
     return dictionary;
 }
 
-
+check("1101")
+check("2201")
+check("2212")
+check("3250")
+console.log(check("1101"))
 module.exports = {
     getDisplay,
     check

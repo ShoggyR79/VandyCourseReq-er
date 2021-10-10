@@ -1,10 +1,11 @@
+const { count } = require("console");
 const { jsPDF } = require("jspdf"); // will automatically load the node version
 let courses = [
     [
       {
         id: '1000',
         name: 'The Beauty and Joy of Computing',
-        isTaken: false,
+        isTaken: true,
         category: 'none\r',
         description: '"Fundamental concepts of computing including abstraction, algorithms, design, and distributed computation. Hands-on curriculum focusing on translating ideas into working computer programs and developing a mastery of practical computational literacy. The relevance and societal impact of computer science are emphasized. Students in the School of Engineering may only receive open elective credit for CS 1000. FALL, SPRING. [3]',
         term: 'FALL/SPRING'
@@ -148,12 +149,25 @@ console.log(courses.length)
 
 
 function printPDF(courses, doc){
-    gap = 0
+    var gap = 0;
+    var count = 0;
+    doc.setFontSize(26);
+    doc.setFont(undefined, "bold").text("Recommended Courses", 10, 15+10*gap);
+    doc.setFontSize(16);
     for(let i = 0;i<courses.length;i++){
         for(let j = 0;j<courses[i].length;j++){
-            doc.setFont(undefined, "bold").text(courses[i][j].name, 10, 10+10*gap);
-            doc.setFont(undefined, "normal").text(courses[i][j].description, 10, 10+10*(gap+1));
-            gap = gap + 3;
+            if(!courses[i][j].isTaken){
+                tmp = textWrapper(courses[i][j].description);
+                doc.setFont(undefined, "bold").text("CS"+courses[i][j].id+": "+courses[i][j].name, 10, 30+10*gap);
+                doc.setFont(undefined, "normal").text(tmp[0], 10, 30+10*(gap+1));
+                gap = gap + 3 + tmp[1]/2;
+                count++;
+                if(count%4 == 0){
+                    doc.addPage();
+                    gap = 0;
+                }
+            }
+            
         }
         
     }
@@ -161,8 +175,17 @@ function printPDF(courses, doc){
 }
 
 function textWrapper(text){
-    tmp = ""
-    index = 0
-    tmp = text.slice(index,index+65).search(" ")
+    var tmp = ""
+    var start = 0;
+    var index = 65;
+    var count = 0;
+    while(index<text.length){
+        tmp += text.slice(start,text.slice(index).search(" ")+index);
+        tmp = tmp + "\n";
+        start = tmp.length-1;
+        index = start + 65;
+        count = count + 1;
+    }
+    return [tmp, count];
 }
 printPDF(courses, doc)
