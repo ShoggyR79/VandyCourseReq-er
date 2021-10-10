@@ -11,9 +11,7 @@ export default class Course extends Component {
 		console.log(course.id, course.isTaken)
 		return (
 			<div>
-				<button className={course.isTaken ? "btn-taken " + course.category : "btn-nottaken " + course.category} onClick={() => {
-						updateChange(course.id)
-					}}>
+				<button className={course.isTaken ? "btn-taken " + course.category : "btn-nottaken " + course.category} >
 					<div>
 						<h4>{"CS" + course.id}</h4>
 						<p>{course.name}</p>

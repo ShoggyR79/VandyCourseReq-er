@@ -198,6 +198,7 @@ function getDisplay() {
         let layer = graph.taken[i].substr(0,1);
         while (result.length < layer)
             result.push([]);
+<<<<<<< HEAD
         for (let i = 1; i < graph.taken.length; ++i) {
             let layer = graph.taken[i].substr(0, 1);
             
@@ -223,6 +224,25 @@ function getDisplay() {
             if(!added)
                 result[layer-1].push(dictionary);
         }   
+=======
+        }
+        let dictionary = {};
+        dictionary["id"] = graph.taken[i];
+        dictionary["name"] = courseInfo[graph.taken[i]][0];
+        dictionary["isTaken"] = true;
+        dictionary["category"] = courseInfo[graph.taken[i]][1];
+        let added = false;
+        for (let j = 0; j < result[layer - 1].length; ++j) {
+            var id = result[layer - 1][j]["id"];
+            if (parseInt(graph.taken[i]) < parseInt(id)) {
+                result[layer - 1].splice(j, 0, dictionary);
+                added = true;
+                break;
+            }
+        }
+        if (!added)
+            result[layer - 1].push(dictionary);
+>>>>>>> 8b83e41e4f762fe33199eb2596d6468b56a6a715
     }
     return result;
 }
