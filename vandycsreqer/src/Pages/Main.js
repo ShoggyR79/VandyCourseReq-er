@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import backgroundIMG from '../images/space1.jpg'
+import {jsPDF} from 'jspdf'
 
 
 import Course from '../Components/Course'
 import { changeTaken, getCourses } from '../redux/actions/CourseAction'
+import { printPDF } from '../services/createPDF';
 
 export default function Main() {
 
@@ -49,6 +51,11 @@ export default function Main() {
             </div>
         })
     }
+
+    const generateFilePDF = () => {
+        const doc = new jsPDF();
+        printPDF(courseList, doc)
+    }
     return (
         <div style={courseList.length < 3 ? { backgroundImage: `url(${backgroundIMG})`, height: "100%", width: "100%", position: "absolute" } : { backgroundImage: `url(${backgroundIMG})` }}>
             <div className="container">
@@ -59,10 +66,13 @@ export default function Main() {
 
 
                             <strong className="ml-2 mr-2">Vanderbilt CS Buddy</strong>
-                            <i class="fas fa-rocket"></i>
+                            <i class="fas fa-rocket mr-5"></i>
+
+
 
 
                         </a>
+                        <button className="btn btn-success d-flex justify-content-right" onClick={generateFilePDF}>Generate PDF</button>
                         {/* <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button> */}
