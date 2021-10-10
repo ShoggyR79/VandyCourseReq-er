@@ -1,4 +1,23 @@
-# Introduction
+# Vandy Course Buddy
+
+Submitted by: Du Duong, Binh Ho, Tiger Li, Hieu Vu
+
+## Sypnosis
+
+Vandy Course Buddy is a CS major interactive roadmap that allows you to customize different paths to completing your CS major. Our goal is to build a better course planner than what the university offers in YES. Vandy Course Buddy is fast, colorful, and easy-to-use, and makes course shopping fun and intuitive.
+
+## Setup
+
+There are two folders, `API` and `Front-End`.
+
+1. To start, navigate to `../BackEnd` and `../vandycsreqer` and do `npm install` for setup installations
+2. Then, start the backend services -> navigate to `../BackEnd/` and run command `npm start` in terminal
+3. After that, start front services -> navigate to `../vandycsreqer` and run command `npm start` in terminal
+
+**NOTE: THESE MUST BE DONE IN ORDER**
+
+## Description and Reflections
+
 Hello everyone, this is the demo for Vandy Course Buddy. Vandy Course Buddy is a CS major interactive roadmap that allows you to customize different paths to completing your CS major. 
 
 ## Inspiration
