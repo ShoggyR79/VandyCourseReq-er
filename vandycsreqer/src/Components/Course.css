@@ -25,6 +25,8 @@ button.btn-taken{
 button.btn-nottaken{
 	border-radius: 15px;
 	border: none;
+	opacity: 0.5;
+	filter: alpha(opacity);
 }
 
 button.none{
