@@ -15,9 +15,8 @@ const getCourseToDisplay = async (req, res) => {
 const updateCheck = async (req, res) => {
     try {
         const { id } = req.params;
-        console.log(id)
-
         const courseArr = await check(id);
+        console.log('res', courseArr)
         res.status(200).send(courseArr)
     } catch (error) {
         console.log(error)

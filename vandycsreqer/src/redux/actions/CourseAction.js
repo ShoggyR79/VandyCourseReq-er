@@ -3,11 +3,9 @@ import axios from "axios"
 const url = "http://localhost:1234/api"
 
 export const getCourses = () => {
-    console.log("object")
     return async (dispatch) => {
 
         try {
-
             const result = await axios({
                 url: `${url}/getcourses/`,
                 method: 'GET'
@@ -30,14 +28,11 @@ export const changeTaken = (id) => {
     return async (dispatch) => {
 
         try {
-            const result = await axios({
+            await axios({
                 url: `${url}/check/${id}`,
                 method: 'PUT'
             })
-            dispatch({
-                type: "SET_COURSES_LIST",
-                courses: result.data
-            })
+            dispatch(getCourses())
         }
         catch (error) {
             console.log(error)
