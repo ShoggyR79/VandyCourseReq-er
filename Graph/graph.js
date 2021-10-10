@@ -253,6 +253,8 @@ function getCourseDetails(id) {
     dictionary["term"] = courseInfo[id][3];
     return dictionary;
 }
+
+
 module.exports = {
     getDisplay,
     check
