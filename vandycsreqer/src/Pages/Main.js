@@ -69,7 +69,7 @@ export default function Main() {
                             <i class="fas fa-laptop-code"></i>
 
 
-                            <strong className="ml-2 mr-2">Vanderbilt CS Buddy</strong>
+                            <strong className="ml-2 mr-2">Vanderbilt Course Buddy</strong>
                             <i class="fas fa-rocket mr-5"></i>
 
 
