@@ -247,10 +247,10 @@ function getCourseDetails(id) {
     return dictionary;
 }
 
-console.log(courseInfo);
 
 
 module.exports = {
     getDisplay,
-    check
+    check,
+    getCourseDetails
 }
