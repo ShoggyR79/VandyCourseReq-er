@@ -1,6 +1,7 @@
 const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
 const { createPublicKey } = require('crypto');
-const fs = require('fs')
+const fs = require('fs');
+const { PassThrough } = require('stream');
 
 
 class Graph {
@@ -120,6 +121,31 @@ class Graph {
             }
         }
         return classList;
+    }
+    updateGraphDelete(id){
+        if(id == "3262"){
+            if((!this.taken.includes("1101")) && (!this.taken.includes("1101")) && (!this.taken.includes("1101")))
+                this.findAllDeleted(id);
+                return;
+        }
+
+        let array = [];
+        for(let i = 0; i < this.prereqs.length; ++i){
+            if(this.prereqs[i][0] == id){
+                array = this.prereqs[i];
+                break;
+            }
+        }
+        for(let i = 0; i < array; ++i){
+            if(array[i].length == 4 && !this.taken.includes(array[i])){
+                this.findAllDeleted(id);
+                break;
+            }
+            if(array[i].length == 9 && (!this.taken.includes(currID.substr(0, 4))) && (!this.taken.includes(currID.substr(5, 4)))){
+                this.findAllDeleted(id);
+                break;
+            }   
+        }
     }
     findAllDeleted(id) {
         var checkCourses = this.graph[id];
@@ -285,7 +311,6 @@ function getCourseDetails(id) {
     dictionary["term"] = courseInfo[id][3];
     return dictionary;
 }
-
 
 
 
