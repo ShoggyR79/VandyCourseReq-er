@@ -30,7 +30,7 @@ export default function Main() {
 
     const renderLine = (line) => {
         return line.map((course, index) => {
-            return <div className="col-3 d-flex justify-content-center mt-2" key={index}>
+            return <div className="col-3 d-flex justify-content-center mt-3" key={index}>
                 <Course course={course}></Course>
             </div >
         })
