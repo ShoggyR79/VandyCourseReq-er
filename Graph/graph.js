@@ -202,7 +202,7 @@ function getDisplay() {
         let layer = graph.taken[i].substr(0,1);
         while (result.length < layer)
             result.push([]);
-<<<<<<< HEAD
+
         for (let i = 1; i < graph.taken.length; ++i) {
             let layer = graph.taken[i].substr(0, 1);
             
@@ -228,7 +228,7 @@ function getDisplay() {
             if(!added)
                 result[layer-1].push(dictionary);
         }   
-=======
+
         }
         let dictionary = {};
         dictionary["id"] = graph.taken[i];
@@ -244,9 +244,9 @@ function getDisplay() {
                 break;
             }
         }
-        if (!added)
+        if (!added){
             result[layer - 1].push(dictionary);
->>>>>>> 8b83e41e4f762fe33199eb2596d6468b56a6a715
+
     }
     return result;
 }
