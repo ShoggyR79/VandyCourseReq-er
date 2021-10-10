@@ -1,6 +1,7 @@
 const { createPublicKey } = require('crypto');
 const fs = require('fs')
 
+
 class Graph {
     constructor(){
         let filename = "API/course_file.txt";
@@ -232,7 +233,6 @@ function getCourseDetails(id){
 }   
 
 
-check("1101");
-console.log(getDisplay());
-check("1101");
-console.log(getDisplay());
+module.exports = {
+    getDisplay,
+}
