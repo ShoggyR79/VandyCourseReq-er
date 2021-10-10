@@ -4,7 +4,7 @@ const fs = require('fs')
 
 class Graph {
     constructor() {
-        let filename = "API/course_file.txt";
+        let filename = "../API/course_file.txt";
         var text = fs.readFileSync(filename, "utf-8");
         this.prereqs = this.buildPrereqList(text);
         this.courseInfo = this.buildCourseList(text);
@@ -261,13 +261,6 @@ function getCourseDetails(id) {
     dictionary["term"] = courseInfo[id][3];
     return dictionary;
 }
-
-check("1104");
-check("2201");
-check("3262");
-check("2204");
-console.log(check("2201"));
-
 
 module.exports = {
     getDisplay,
