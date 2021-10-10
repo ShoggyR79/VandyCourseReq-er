@@ -180,16 +180,9 @@ function getDisplay() {
     result.push([]);
     var layer = 0;
     let classes = graph.availableClasses();
-<<<<<<< HEAD
     for(let i = 0; i < classes.length; ++i){
         if(layer != parseInt(classes[i].substr(0,1))){
             layer = parseInt(classes[i].substr(0,1));
-=======
-    console.log(classes);
-    for (let i = 0; i < classes.length; ++i) {
-        if (layer != parseInt(classes[i].substr(0, 1))) {
-            layer = parseInt(classes[i].substr(0, 1));
->>>>>>> 2e7a5b851d9ae879ccea7a6f4e34c90fbd5d9cb5
         }
         while (result.length < layer) {
             result.push([]);
@@ -219,15 +212,8 @@ function getDisplay() {
     return result;
 }
 
-<<<<<<< HEAD
 function check(id){
     if(graph.taken.includes(id)){
-=======
-function check(id, isTaken) {
-    // isTaken = true = uncheck
-    // isTaken = false = check
-    if (isTaken) {
->>>>>>> 2e7a5b851d9ae879ccea7a6f4e34c90fbd5d9cb5
         graph.unclick(id);
     }
     else {
@@ -248,11 +234,6 @@ function getCourseDetails(id) {
 
 
 module.exports = {
-<<<<<<< HEAD
-    getDisplay, 
-}
-=======
     getDisplay,
     check
 }
->>>>>>> 2e7a5b851d9ae879ccea7a6f4e34c90fbd5d9cb5
