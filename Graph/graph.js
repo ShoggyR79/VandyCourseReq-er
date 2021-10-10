@@ -152,14 +152,11 @@ class Graph {
         var i = 0;
         while (text[startIndex] == "1" || text[startIndex] == "2" || text[startIndex] == "3" || text[startIndex] == "4") { //check if end of file is not reached
             var id = text.slice(startIndex, startIndex + 4);
-            var name = text.slice(text.slice(startIndex).search("\"") + startIndex+1, text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\"") + text.slice(startIndex).search("\"") + startIndex+1);
-            //console.log("hello");
-            //console.log(text.slice(startIndex).search("\""));
-            //console.log(text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\""));
-            
+            var name = text.slice(text.slice(startIndex).search("\"") + startIndex, text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\"") + 1 + startIndex + 11);
+
             startIndex = text.slice(text.slice(startIndex).search("\"") + startIndex + 1).search("\"") + 1 + startIndex + 11;
 
-            var description = text.slice(startIndex + 2, text.slice(startIndex + 1).search("]") + 1 + startIndex+1);
+            var description = text.slice(startIndex + 2, text.slice(startIndex + 1).search("]") + 1 + startIndex + 1);
             startIndex = text.slice(startIndex + 1).search("]") + 3 + startIndex;
             startIndex = text.slice(startIndex).search(",") + startIndex;
             var term = text.slice(startIndex + 1, text.slice(startIndex + 1).search(",") + startIndex + 1);
@@ -167,7 +164,6 @@ class Graph {
             var cat = text.slice(startIndex + 1, text.slice(startIndex).search("\n") + startIndex);
             courseList[id] = [name, cat, description, term];
             startIndex = text.slice(startIndex + 1).search("\n") + 1 + startIndex + 1;
-            console.log(name)
             //console.log(id, name, cat, description, term);
         }
         return courseList;
@@ -202,7 +198,6 @@ function getDisplay() {
         let layer = graph.taken[i].substr(0,1);
         while (result.length < layer)
             result.push([]);
-<<<<<<< HEAD
         for (let i = 1; i < graph.taken.length; ++i) {
             let layer = graph.taken[i].substr(0, 1);
             
@@ -228,25 +223,6 @@ function getDisplay() {
             if(!added)
                 result[layer-1].push(dictionary);
         }   
-=======
-        }
-        let dictionary = {};
-        dictionary["id"] = graph.taken[i];
-        dictionary["name"] = courseInfo[graph.taken[i]][0];
-        dictionary["isTaken"] = true;
-        dictionary["category"] = courseInfo[graph.taken[i]][1];
-        let added = false;
-        for (let j = 0; j < result[layer - 1].length; ++j) {
-            var id = result[layer - 1][j]["id"];
-            if (parseInt(graph.taken[i]) < parseInt(id)) {
-                result[layer - 1].splice(j, 0, dictionary);
-                added = true;
-                break;
-            }
-        }
-        if (!added)
-            result[layer - 1].push(dictionary);
->>>>>>> 8b83e41e4f762fe33199eb2596d6468b56a6a715
     }
     return result;
 }
@@ -271,8 +247,8 @@ function getCourseDetails(id) {
     return dictionary;
 }
 
-console.log(check("1101"));
-console.log(check("2201"));
+console.log(courseInfo);
+
 
 module.exports = {
     getDisplay,
