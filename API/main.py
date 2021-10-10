@@ -169,7 +169,7 @@ def exportTXT(name, description, prereq, term, course_writer):
         if id in map.keys():
             result.append(map.get(id)+"\n")
         else:
-            result.append("None"+"\n")
+            result.append("none"+"\n")
         #print(result)
         course_writer.write(writeList(result))
 
