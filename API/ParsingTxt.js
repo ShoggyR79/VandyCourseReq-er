@@ -40,7 +40,8 @@ function buildCourseList(text){
     while(text[startIndex]== "1" || text[startIndex]== "2" || text[startIndex]== "3" || text[startIndex]== "4"){ //check if end of file is not reached
         var id = text.slice(startIndex,startIndex + 4);
         var name = text.slice(text.slice(startIndex).search("\"")+startIndex,  text.slice(text.slice(startIndex).search("\"")+startIndex+1).search("\"")+1+startIndex+11);
-        
+        console.log("hello");
+        console.log((text.slice(startIndex).search("\"")+startIndex+1).search("\"")== 0);
         startIndex = text.slice(text.slice(startIndex).search("\"")+startIndex+1).search("\"")+1+startIndex+11;
     
         var description = text.slice(startIndex+2,text.slice(startIndex+1).search("]")+1+startIndex+1);
@@ -55,7 +56,7 @@ function buildCourseList(text){
     }
     return courseList;
 }
-//test = {}
+test = {}
 //test = buildCourseList(text);
 //console.log(test)
 
