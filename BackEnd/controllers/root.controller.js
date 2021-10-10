@@ -1,4 +1,4 @@
-const { getDisplay, check } = require('../../Graph/graph.js')
+const { getDisplay, check, getCourseDetails } = require('../../Graph/graph.js')
 
 
 const getCourseToDisplay = async (req, res) => {
@@ -26,9 +26,20 @@ const updateCheck = async (req, res) => {
 
 }
 
-
+const getCourseByDetails = async(req, res) => {
+    try {
+        const {id} = req.params;
+        const course = await getCourseDetails(id)
+        console.log('res', course)
+        res.status(200).send(course)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error)
+    }
+}
 
 module.exports = {
     getCourseToDisplay,
-    updateCheck
+    updateCheck,
+    getCourseByDetails
 }

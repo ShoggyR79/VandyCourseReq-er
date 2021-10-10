@@ -244,5 +244,6 @@ console.log(check("2201"));
 
 module.exports = {
     getDisplay,
-    check
+    check,
+    getCourseDetails
 }
