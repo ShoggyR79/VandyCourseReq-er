@@ -5,7 +5,7 @@ const fs = require('fs')
 
 class Graph {
     constructor() {
-        let filename = "API/course_file.txt";
+        let filename = "../API/course_file.txt";
         var text = fs.readFileSync(filename, "utf-8");
         this.prereqs = this.buildPrereqList(text);
         this.courseInfo = this.buildCourseList(text);
