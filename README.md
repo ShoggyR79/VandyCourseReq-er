@@ -1,4 +1,4 @@
-#Introduction
+# Introduction
 Hello everyone, this is the demo for Vandy Course Buddy. Vandy Course Buddy is a CS major interactive roadmap that allows you to customize different paths to completing your CS major. 
 
 ## Inspiration
