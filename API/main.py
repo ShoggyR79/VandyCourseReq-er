@@ -21,53 +21,54 @@ class Course(object):
         self.keywords = [] #array of strings
 
 map = {
-        "1101": "Core",
-        "1104": "Core",
-        "2201": "Core",
-        "2212": "Core",
-        "2123": "Core",
-        "3251": "Core",
-        "3281": "Core",
-        "3250": "Core",
-        "3270": "Core",
+        "1101": "core",
+        "1104": "core",
+        "1151": "core",
+        "2201": "core",
+        "2212": "core",
+        "2123": "core",
+        "3251": "core",
+        "3281": "core",
+        "3250": "core",
+        "3270": "core",
 
-        "2231": "Hardware",
-        "3276": "Hardware",
-        "3282": "Hardware",
-        "4284": "Hardware",
+        "2231": "hardware",
+        "3276": "hardware",
+        "3282": "hardware",
+        "4284": "hardware",
 
-        "3253": "Software Engineering/Design",
-        "3254": "Software Engineering/Design",
-        "3274": "Software Engineering/Design",
-        "4278": "Software Engineering/Design",
-        "4279": "Software Engineering/Design",
+        "3253": "softwareED",
+        "3254": "softwareED",
+        "3274": "softwareED",
+        "4278": "softwareED",
+        "4279": "softwareED",
 
-        "3258": "Graphics/Animation/VR",
-        "3259": "Graphics/Animation/VR",
-        "4249": "Graphics/Animation/VR",
+        "3258": "gavr",
+        "3259": "gavr",
+        "4249": "gavr",
 
-        "3262": "ML/AI",
-        "4260": "ML/AI",
-        "4262": "ML/AI",
-        "4267": "ML/AI",
-        "4269": "ML/AI",
+        "3262": "mlai",
+        "4260": "mlai",
+        "4262": "mlai",
+        "4267": "mlai",
+        "4269": "mlai",
 
-        "3265": "Data",
-        "4266": "Data",
+        "3265": "data",
+        "4266": "data",
 
-        "3860": "Research",
-        "3861": "Research",
+        "3860": "research",
+        "3861": "research",
 
-        "4277": "Cybersecurity",
-        "4285": "Cybersecurity",
+        "4277": "cybersecurity",
+        "4285": "cybersecurity",
 
-        "4283": "Network/Cloud",
-        "4287": "Network/Cloud",
-        "4288": "Network/Cloud",
+        "4283": "netCloud",
+        "4287": "netCloud",
+        "4288": "netCloud",
 
-        "4959": "Computer Science Seminar",
+        "4959": "seminar",
 
-        "3252": "Theory"
+        "3252": "theory"
     }
 major = "CS"
 if major == "CS":
@@ -168,7 +169,7 @@ def exportTXT(name, description, prereq, term, course_writer):
         if id in map.keys():
             result.append(map.get(id)+"\n")
         else:
-            result.append("None"+"\n")
+            result.append("none"+"\n")
         #print(result)
         course_writer.write(writeList(result))
 
