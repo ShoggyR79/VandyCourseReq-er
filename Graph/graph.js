@@ -194,17 +194,10 @@ function getDisplay() {
         dictionary["category"] = courseInfo[classes[i]][1];
         result[layer - 1].push(dictionary);
     }
-<<<<<<< HEAD
     for(let i = 1; i < graph.taken.length; ++i){
         let layer = graph.taken[i].substr(0,1);
         while (result.length < layer) {
             result.push([]);
-=======
-    for (let i = 1; i < graph.taken.length; ++i) {
-        let layer = graph.taken[i].substr(0, 1);
-        if (layer != parseInt(classes[i].substr(0, 1))) {
-            layer = parseInt(classes[i].substr(0, 1));
->>>>>>> 0732199b845582950333c858711983ea488b0442
         }
         let dictionary = {};
         dictionary["id"] = graph.taken[i];
@@ -220,14 +213,8 @@ function getDisplay() {
                 break;
             }
         }
-<<<<<<< HEAD
-        console.log(graph.taken[i], layer);
-        if(!added)
-            result[layer-1].push(dictionary);
-=======
         if (!added)
             result[layer - 1].push(dictionary);
->>>>>>> 0732199b845582950333c858711983ea488b0442
     }
     return result;
 }
