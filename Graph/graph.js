@@ -234,5 +234,5 @@ function getCourseDetails(id){
 
 
 module.exports = {
-    getDisplay,
+    getDisplay, 
 }
