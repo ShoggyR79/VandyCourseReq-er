@@ -16,6 +16,8 @@ There are two folders, `API` and `Front-End`.
 
 **NOTE: THESE MUST BE DONE IN ORDER**
 
+
+
 ## Description and Reflections
 
 Hello everyone, this is the demo for Vandy Course Buddy. Vandy Course Buddy is a CS major interactive roadmap that allows you to customize different paths to completing your CS major. 
