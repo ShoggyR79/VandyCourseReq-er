@@ -4,7 +4,7 @@ const fs = require('fs')
 
 class Graph {
     constructor() {
-        let filename = "../API/course_file.txt";
+        let filename = "API/course_file.txt";
         var text = fs.readFileSync(filename, "utf-8");
         this.prereqs = this.buildPrereqList(text);
         this.courseInfo = this.buildCourseList(text);
@@ -98,11 +98,13 @@ class Graph {
             for (var key in this.graph) {
                 if (key == id)
                     continue;
-                if (this.graph[key].includes(checkCourses[i]))
+                if (this.graph[key].includes(checkCourses[i])){
                     exist = true;
-                break;
+                    break;
+                }
             }
             if (!exist) {
+                this.findAllDeleted(checkCourses[i]);
                 delete this.graph[checkCourses[i]];
                 if (this.taken.includes(checkCourses[i]))
                     this.taken.splice(this.taken.indexOf(checkCourses[i]), 1);
@@ -253,6 +255,12 @@ function getCourseDetails(id) {
     dictionary["term"] = courseInfo[id][3];
     return dictionary;
 }
+
+check("1101");
+check("2201");
+check("3251");
+console.log(check("1101"));
+
 module.exports = {
     getDisplay,
     check
