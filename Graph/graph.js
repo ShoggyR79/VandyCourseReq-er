@@ -78,7 +78,6 @@ class Graph {
                 }
             }
             // find the class already taken that shoudl be added to the graph
-            console.log(this.prereqs[n]);
             for(let j = 1; j < this.prereqs[n].length; ++j){
                 if (this.prereqs[n][j] == "-1")
                     break;
@@ -122,33 +121,57 @@ class Graph {
         }
         return classList;
     }
-    updateGraphDelete(id){
-        if(id == "3262"){
-            if((!this.taken.includes("1101")) && (!this.taken.includes("1101")) && (!this.taken.includes("1101")))
-                this.findAllDeleted(id);
-                return;
+    updateGraphDelete(){
+        for(var key in this.graph){
+            let id = key;
+            if(id == "3262"){
+                if((!this.taken.includes("1101")) && (!this.taken.includes("1101")) && (!this.taken.includes("1101")))
+                    this.unclick(id);
+                    return;
+            }
+            let array = [];
+            for(let i = 0; i < this.prereqs.length; ++i){
+                if(this.prereqs[i][0] == id){
+                    array = this.prereqs[i];
+                    break;
+                }
+            }
+            let everyChecked = true;
+            if(id == "2201"){
+                console.log("2201 case: ", array);
+                //console.log("2201 case: ", this.taken);
+            }
+            for(let i = 1; i < array.length; ++i){
+                if(array[i].length == 4 && (!this.taken.includes(array[i])))
+                    everyChecked = false;
+                
+                // execute if this array[i] has not been taken
+                //console.log("taken: ", this.taken, array[i].substr(0, 4), array[i].substr(5, 4));
+                if(array[i].length == 9 && !(this.taken.includes(array[i].substr(0, 4)) || (this.taken.includes(array[i].substr(5, 4))))){
+                    //console.log("setting to false: ", id)
+                    everyChecked = false;
+                }   
+            }
+                if(!everyChecked){
+                    this.findAllDeleted(id);
+                    this.updateGraphDelete();
+                }
+            
+        }
+        for(var key in this.graph){
+            let array = this.graph[key]
+            for(let i = 0; i < array.length; ++i){
+                if(!this.taken.includes(array[i])){
+                    array.splice(i, 1);
+                }
+            }
+            this.graph[key] = array;
         }
 
-        let array = [];
-        for(let i = 0; i < this.prereqs.length; ++i){
-            if(this.prereqs[i][0] == id){
-                array = this.prereqs[i];
-                break;
-            }
-        }
-        for(let i = 0; i < array; ++i){
-            if(array[i].length == 4 && !this.taken.includes(array[i])){
-                this.findAllDeleted(id);
-                break;
-            }
-            if(array[i].length == 9 && (!this.taken.includes(currID.substr(0, 4))) && (!this.taken.includes(currID.substr(5, 4)))){
-                this.findAllDeleted(id);
-                break;
-            }   
-        }
     }
     findAllDeleted(id) {
         var checkCourses = this.graph[id];
+        if(checkCourses != undefined){
         // checking if any of the connections should be deleted from graph
         for (let i = 0; i < checkCourses.length; ++i) {
             let exist = false;
@@ -177,7 +200,9 @@ class Graph {
             }
             this.graph[key] = currArr;
         }
+    }
         this.taken.splice(this.taken.indexOf(id), 1);
+        this.updateGraphDelete();
     }
     buildPrereqList(text) {
         let prereqList = [];
